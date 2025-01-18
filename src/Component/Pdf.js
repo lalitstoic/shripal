@@ -11,6 +11,13 @@ const Pdf = () => {
     const [inlcusion, setInclusion] = useState('');
     const [exclusion, setExclusion] = useState('');
 
+    // first page 
+    const [locationName, setLocationName] = useState('');
+    const [dan, setDan] = useState('');
+    const [title, setTitle] = useState('');
+    const [tableHeading, setTableHeading] = useState('')
+
+
 
     // circle images 
     const [circleOne, setCircleOne] = useState(null)
@@ -175,20 +182,28 @@ const Pdf = () => {
     return (
         <div className="">
 
+            <input placeholder='Enter the location name' type="text" value={locationName} onChange={(e) => setLocationName(e.target.value)} />
+            <input placeholder='Enter the Days and Nights' type="text" value={dan} onChange={(e) => setDan(e.target.value)} />
+            <input placeholder='Enter second page title' type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input placeholder='Enter Hotel table heading' type="text" value={tableHeading} onChange={(e) => setTableHeading(e.target.value)} />
+
 
             {/* add circle images  */}
+            <p>Circle one</p>
             <input
                 type="file"
                 onChange={handleImageChangeCircleOne}
                 name=""
                 id=""
             />
+            <p>Circle two</p>
             <input
                 type="file"
                 onChange={handleImageChangeCircleTwo}
                 name=""
                 id=""
             />
+            <p>Circle Three</p>
             <input
                 type="file"
                 onChange={handleImageChangeCircleThree}
@@ -197,24 +212,28 @@ const Pdf = () => {
             />
 
             {/* add sqaure images  */}
+            <p>Square One</p>
             <input
                 type="file"
                 onChange={handleImageSqureOne}
                 name=""
                 id=""
             />
+            <p>Square Two</p>
             <input
                 type="file"
                 onChange={handleImageSqureTwo}
                 name=""
                 id=""
             />
+            <p>Square Three</p>
             <input
                 type="file"
                 onChange={handleImageSqureThree}
                 name=""
                 id=""
             />
+            <p>Square Four</p>
             <input
                 type="file"
                 onChange={handleImageSqureFour}
@@ -224,9 +243,6 @@ const Pdf = () => {
 
 
 
-            <textarea className='w-full' name="" placeholder='notes : add a full stop after every disclaimer' value={notes} onChange={(e) => setNotes(e.target.value)} id=""></textarea>
-            <textarea className='w-full' name="" placeholder='Inclusion : add a full stop after every line' value={inlcusion} onChange={(e) => setInclusion(e.target.value)} id=""></textarea>
-            <textarea className='w-full' name="" placeholder='Exclusion : add a full stop after every line' value={exclusion} onChange={(e) => setExclusion(e.target.value)} id=""></textarea>
 
 
 
@@ -256,28 +272,6 @@ const Pdf = () => {
                     ))}
                 </div>
                 <button onClick={handleAddDate}>+ Add Date</button>
-
-                {/* Display the data in a table */}
-                {/* <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Activities</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {dates.map((date, dateIndex) => (
-                            <tr key={dateIndex}>
-                                <td>{date.date}</td>
-                                <td>
-                                    {date.activities.join(', ')}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table> */}
-
-
             </div>
             <div>
                 {inputGroups.map((group, index) => (
@@ -345,6 +339,9 @@ const Pdf = () => {
                     </div>
                 ))}
 
+                <textarea className='w-full' name="" placeholder='notes : add a full stop after every disclaimer' value={notes} onChange={(e) => setNotes(e.target.value)} id=""></textarea>
+                <textarea className='w-full' name="" placeholder='Inclusion : add a full stop after every line' value={inlcusion} onChange={(e) => setInclusion(e.target.value)} id=""></textarea>
+                <textarea className='w-full' name="" placeholder='Exclusion : add a full stop after every line' value={exclusion} onChange={(e) => setExclusion(e.target.value)} id=""></textarea>
                 {/* Render a table based on the inputGroups state */}
                 <table border="1" style={{ marginTop: '30px', width: '100%' }}>
                     <thead>
@@ -377,9 +374,14 @@ const Pdf = () => {
                 onChange={handleImageChange}
                 className="mb-4"
             />
-            <input placeholder='Enter hotel table heading' type="text" value={heading} onChange={(e) => setHeading(e.target.value)} />
+            <input placeholder='Enter Dates table heading' type="text" value={heading} onChange={(e) => setHeading(e.target.value)} />
 
+
+            {/* main div  */}
             <div ref={contentRef} className="w-[612px] h-fit bg-slate-400 flex flex-col justify-center items-center self-center">
+
+
+
                 {/* First page content */}
                 <div style={{
                     backgroundImage: `url(${image})`,
@@ -392,12 +394,12 @@ const Pdf = () => {
                     <div className="flex flex-col justify-center items-center gap-[130.24px] pb-[22.89px]">
                         {/* div for headings */}
                         <div className="flex flex-col justify-center items-center">
-                            <p className="el text-[90.6px] text-white">FINLAND</p>
+                            <p className="el text-[90.6px] text-white">{locationName}</p>
                             {/* Adjusted positioning without absolute */}
-                            <h2 className="alice text-[31.2px] text-white">7 NIGHTS 8 DAYS</h2>
+                            <h2 className="alice text-[31.2px] text-white">{dan}</h2>
                         </div>
 
-                        <img className="w-[135px] h-[48.62px] mix-blend-multiply" src={Media.logo} alt="" />
+                        <img className="w-[135px] h-[48.62px]" src={Media.logonobg} alt="" />
                     </div>
                 </div>
 
@@ -416,7 +418,7 @@ const Pdf = () => {
                 >
                     <Header />
 
-                    <h3 className='alice text-[15px] blue mt-[103.85px]'>FINLAND 7 N 8 D</h3>
+                    <h3 className='alice text-[15px] blue mt-[103.85px]'>{title}</h3>
 
                     {/* table div  */}
                     <div className='w-[516px] h-fit mt-[59px] gap-0'>
@@ -424,7 +426,7 @@ const Pdf = () => {
                         <div className="w-full">
                             {/* Title */}
                             <div className="text-center border border-t-black border-l-black border-r-black pt-2 pb-2">
-                                <p className="alice blue text-gray-700">No. of pax: 04 adults (02 rooms)</p>
+                                <p className="alice blue text-gray-700">{tableHeading}</p>
                             </div>
 
                             {/* Table */}
@@ -509,7 +511,7 @@ const Pdf = () => {
                                 <div className="w-full">
                                     {/* Title */}
                                     <div className="text-center border border-t-black border-l-black border-r-black pt-2 pb-2">
-                                        <p className="alice blue text-gray-700">No. of pax: 04 adults (02 rooms)</p>
+                                        <p className="alice blue text-gray-700">{tableHeading}</p>
                                     </div>
 
                                     {/* Table */}
@@ -563,8 +565,7 @@ const Pdf = () => {
                             <thead>
                                 <tr>
                                     <th className="alice border border-black bg-[#293D69] text-white p-2">Date</th>
-                                    <th className="alice border border-black bg-[#293D69] text-white p-2">Sightseeing on SIC basis <br /> no hotel pickup or drop off </th>
-
+                                    <th className="alice border border-black bg-[#293D69] text-white p-2">{heading}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -597,7 +598,7 @@ const Pdf = () => {
                                     <thead>
                                         <tr>
                                             <th className="alice border border-black bg-[#293D69] text-white p-2">Date</th>
-                                            <th className="alice border border-black bg-[#293D69] text-white p-2">Sightseeing on SIC basis <br /> no hotel pickup or drop off </th>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2">{heading} </th>
 
                                         </tr>
                                     </thead>
