@@ -2,10 +2,27 @@ import { useRef, useState } from 'react';
 import html2pdf from 'html2pdf.js';
 import Media from '../Assests/Media.js';
 import Header from './Header.js';
+import EndImages from './EndImages.js';
 
 const Pdf = () => {
     const contentRef = useRef(null);
     const [image, setImage] = useState(null);
+    const [notes, setNotes] = useState('');
+    const [inlcusion, setInclusion] = useState('');
+    const [exclusion, setExclusion] = useState('');
+
+
+    // circle images 
+    const [circleOne, setCircleOne] = useState(null)
+    const [circleTwo, setCircleTwo] = useState(null)
+    const [circleThree, setCircleThree] = useState(null)
+
+    // square images 
+    const [sqOne, setSqOne] = useState(null)
+    const [sqTwo, setSqTwo] = useState(null)
+    const [sqThree, setSqThree] = useState(null)
+    const [sqFour, setSqFour] = useState(null)
+
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -13,6 +30,53 @@ const Pdf = () => {
             setImage(URL.createObjectURL(file));
         }
     };
+
+    // circle images 
+    const handleImageChangeCircleOne = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setCircleOne(URL.createObjectURL(file));
+        }
+    };
+    const handleImageChangeCircleTwo = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setCircleTwo(URL.createObjectURL(file));
+        }
+    };
+    const handleImageChangeCircleThree = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setCircleThree(URL.createObjectURL(file));
+        }
+    };
+
+    // square iamges 
+    const handleImageSqureOne = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSqOne(URL.createObjectURL(file));
+        }
+    };
+    const handleImageSqureTwo = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSqTwo(URL.createObjectURL(file));
+        }
+    };
+    const handleImageSqureThree = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSqThree(URL.createObjectURL(file));
+        }
+    };
+    const handleImageSqureFour = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSqFour(URL.createObjectURL(file));
+        }
+    };
+
 
 
     // hotel table data related code 
@@ -58,11 +122,11 @@ const Pdf = () => {
         { date: '23 Feb', activities: ['We will dance'] },
     ]);
 
-    const handleAddActivity = (dateIndex) => {
-        const newDates = [...dates];
-        newDates[dateIndex].activities.push('');
-        setDates(newDates);
-    };
+    // const handleAddActivity = (dateIndex) => {
+    //     const newDates = [...dates];
+    //     newDates[dateIndex].activities.push('');
+    //     setDates(newDates);
+    // };
 
     const handleActivityChange = (dateIndex, activityIndex, value) => {
         const newDates = [...dates];
@@ -84,6 +148,16 @@ const Pdf = () => {
     };
 
 
+    console.log(dates)
+
+    // notes code here 
+    const notesArray = notes.split(".")
+    // inclusion code here 
+    const incArray = inlcusion.split(".")
+    // notes code here 
+    const excArray = exclusion.split(".")
+
+
 
     const options = {
         filename: 'my-document.pdf',
@@ -100,6 +174,62 @@ const Pdf = () => {
 
     return (
         <div className="">
+
+
+            {/* add circle images  */}
+            <input
+                type="file"
+                onChange={handleImageChangeCircleOne}
+                name=""
+                id=""
+            />
+            <input
+                type="file"
+                onChange={handleImageChangeCircleTwo}
+                name=""
+                id=""
+            />
+            <input
+                type="file"
+                onChange={handleImageChangeCircleThree}
+                name=""
+                id=""
+            />
+
+            {/* add sqaure images  */}
+            <input
+                type="file"
+                onChange={handleImageSqureOne}
+                name=""
+                id=""
+            />
+            <input
+                type="file"
+                onChange={handleImageSqureTwo}
+                name=""
+                id=""
+            />
+            <input
+                type="file"
+                onChange={handleImageSqureThree}
+                name=""
+                id=""
+            />
+            <input
+                type="file"
+                onChange={handleImageSqureFour}
+                name=""
+                id=""
+            />
+
+
+
+            <textarea className='w-full' name="" placeholder='notes : add a full stop after every disclaimer' value={notes} onChange={(e) => setNotes(e.target.value)} id=""></textarea>
+            <textarea className='w-full' name="" placeholder='Inclusion : add a full stop after every line' value={inlcusion} onChange={(e) => setInclusion(e.target.value)} id=""></textarea>
+            <textarea className='w-full' name="" placeholder='Exclusion : add a full stop after every line' value={exclusion} onChange={(e) => setExclusion(e.target.value)} id=""></textarea>
+
+
+
             <div>
                 <div>
                     {dates.map((date, dateIndex) => (
@@ -121,7 +251,6 @@ const Pdf = () => {
                                         />
                                     </div>
                                 ))}
-                                <button onClick={() => handleAddActivity(dateIndex)}>+ Add Activity</button>
                             </div>
                         </div>
                     ))}
@@ -129,7 +258,7 @@ const Pdf = () => {
                 <button onClick={handleAddDate}>+ Add Date</button>
 
                 {/* Display the data in a table */}
-                <table border="1">
+                {/* <table border="1">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -146,7 +275,9 @@ const Pdf = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table> */}
+
+
             </div>
             <div>
                 {inputGroups.map((group, index) => (
@@ -335,21 +466,27 @@ const Pdf = () => {
                         <div className='w-[183px] h-[183px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
                             {/* smaller circle  */}
                             <div className='w-[169px] h-[169px] overflow-hidden flex justify-center items-center rounded-full'>
-                                <img src={Media.call} alt="" />
+                                {circleOne &&
+                                    <img src={circleOne} alt="" />
+                                }
                             </div>
                         </div>
                         {/* circle two  */}
                         <div className='w-[133px] h-[133px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
                             {/* smaller circle  */}
                             <div className='w-[122.83px] h-[122.83px] overflow-hidden flex justify-center items-center rounded-full'>
-                                <img src={Media.call} alt="" />
+                                {circleTwo &&
+                                    <img src={circleTwo} alt="" />
+                                }
                             </div>
                         </div>
                         {/* circle three  */}
                         <div className='w-[88px] h-[88px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
                             {/* smaller circle  */}
                             <div className='w-[81.27px] h-[81.27px] overflow-hidden flex justify-center items-center rounded-full'>
-                                <img src={Media.call} alt="" />
+                                {circleThree &&
+                                    <img src={circleThree} alt="" />
+                                }
                             </div>
                         </div>
 
@@ -418,8 +555,207 @@ const Pdf = () => {
                 >
 
                     <Header />
+                    {/* table div  */}
+                    <div className='w-[516px] h-fit mt-[59px] gap-0'>
+
+                        {/* Table */}
+                        <table className="w-full border-collapse mt-[43.85px]">
+                            <thead>
+                                <tr>
+                                    <th className="alice border border-black bg-[#293D69] text-white p-2">Date</th>
+                                    <th className="alice border border-black bg-[#293D69] text-white p-2">Sightseeing on SIC basis <br /> no hotel pickup or drop off </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {dates.slice(0, 17).map((date, dateIndex) => (
+                                    <tr key={dateIndex}>
+                                        <td className="alice blue border border-black p-2">{date.date}</td>
+                                        <td className="alice blue border border-black p-2 wrap-accommodation">{date.activities}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
+
+
+
+                {
+                    dates.length > 17 && (
+                        <div
+                            className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
+                        >
+
+                            <Header />
+                            {/* table div  */}
+                            <div className='w-[516px] h-fit mt-[59px] gap-0'>
+
+                                {/* Table */}
+                                <table className="w-full border-collapse mt-[43.85px]">
+                                    <thead>
+                                        <tr>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2">Date</th>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2">Sightseeing on SIC basis <br /> no hotel pickup or drop off </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {dates.slice(17, 33).map((date, dateIndex) => (
+                                            <tr key={dateIndex}>
+                                                <td className="alice blue border border-black p-2">{date.date}</td>
+                                                <td className="alice blue border border-black p-2 wrap-accommodation">{date.activities}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    )
+                }
+                {
+                    dates.length > 33 && (
+                        <div
+                            className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
+                        >
+
+                            <Header />
+                            {/* table div  */}
+                            <div className='w-[516px] h-fit mt-[59px] gap-0'>
+
+                                {/* Table */}
+                                <table className="w-full border-collapse mt-[43.85px]">
+                                    <thead>
+                                        <tr>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2">Date</th>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2">Sightseeing on SIC basis <br /> no hotel pickup or drop off </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {dates.slice(33).map((date, dateIndex) => (
+                                            <tr key={dateIndex}>
+                                                <td className="alice blue border border-black p-2">{date.date}</td>
+                                                <td className="alice blue border border-black p-2 wrap-accommodation">{date.activities}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    )
+                }
+
+
+                {/* real third page  */}
+                <div
+                    className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
+                >
+
+                    <Header />
+
+                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+                        <p className='alice text-[15px] blue font-black'>FINLAND 7 N 8 D</p>
+                        <p className='alice text-[15px] blue font-black'>per person on DBL/TWIN sharing basis</p>
+                        <p className='alice text-[15px] blue font-black'>Euro 2381</p>
+                    </div>
+
+                    {/* notes  */}
+
+                    {
+                        notes && (
+                            <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+                                <p className='alice text-[15px] blue font-black'>Note:</p>
+                                {
+                                    notesArray.map((note, noteIndex) => (
+                                        <ul className='ml-12 alice blue'>
+                                            <li key={noteIndex} className='list-disc text-wrap'>{note}</li>
+
+                                        </ul>
+                                    ))
+                                }
+                            </div>
+                        )
+                    }
+
+                    <div className='flex flow-row justify-center items-center w-full h-fit gap-6 self-end mt-[90px]'>
+
+                        {/* image div  */}
+                        <div style={{ borderWidth: '2px' }} className='w-[104px] h-[108px] overflow-hidden border border-[#293d69] bg-black rounded-[18px] flex justify-center items-center'>
+                            {
+                                sqOne &&
+                                <img className='scale-150' src={sqOne} alt="" />
+                            }
+                        </div>
+                        {/* image div  */}
+                        <div style={{ borderWidth: '2px' }} className='w-[104px] h-[108px] overflow-hidden border border-[#293d69] bg-black rounded-[18px] flex justify-center items-center'>
+                            {
+                                sqTwo &&
+                                <img className='scale-150' src={sqTwo} alt="" />
+                            }
+                        </div>
+                        {/* image div  */}
+                        <div style={{ borderWidth: '2px' }} className='w-[104px] h-[108px] overflow-hidden border border-[#293d69] bg-black rounded-[18px] flex justify-center items-center'>
+                            {
+                                sqThree &&
+                                <img className='scale-150' src={sqThree} alt="" />
+                            }
+                        </div>
+                        {/* image div  */}
+                        <div style={{ borderWidth: '2px' }} className='w-[104px] h-[108px] overflow-hidden border border-[#293d69] bg-black rounded-[18px] flex justify-center items-center'>
+                            {
+                                sqFour &&
+                                <img className='scale-150' src={sqFour} alt="" />
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+
+                {/* last page  */}
+
+                {
+                    (inlcusion !== "" || exclusion !== "") && (
+                        <div
+                            className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
+                        >
+                            <Header />
+                            {
+                                inlcusion && (
+                                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+                                        <p className='alice text-[15px] blue font-black'>Inclusion:</p>
+                                        {
+                                            incArray.map((inc, incIndex) => (
+                                                <ul className='ml-12 alice blue'>
+                                                    <li key={incIndex} className='list-disc text-wrap'>{inc}</li>
+                                                </ul>
+                                            ))
+                                        }
+                                    </div>
+                                )
+                            }
+                            {
+                                exclusion && (
+                                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+                                        <p className='alice text-[15px] blue font-black'>Exclusion:</p>
+                                        {
+                                            excArray.map((exc, excIndex) => (
+                                                <ul className='ml-12 alice blue'>
+                                                    <li key={excIndex} className='list-disc text-wrap'>{exc}</li>
+
+                                                </ul>
+                                            ))
+                                        }
+                                    </div>
+                                )
+                            }
+                        </div>
+                    )
+                }
 
 
 
