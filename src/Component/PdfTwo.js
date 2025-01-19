@@ -124,6 +124,65 @@ const PdfTwo = () => {
     };
 
 
+    const [hotelData, setHotelData] = useState([
+        {
+            status: "",
+            info: [
+                { name: "", detail: "" },
+            ],
+            adultCost: "",
+            childCost: "",
+        },
+    ]);
+
+    // Add a new table
+    const addTable = () => {
+        setHotelData([
+            ...hotelData,
+            {
+                status: "",
+                info: [{ name: "", detail: "" }],
+                adultCost: "",
+                childCost: "",
+            },
+        ]);
+    };
+
+    // Remove a table
+    const removeTable = (index) => {
+        const updatedTables = [...hotelData];
+        updatedTables.splice(index, 1);
+        setHotelData(updatedTables);
+    };
+
+    // Add a row to a specific table
+    const addRow = (tableIndex) => {
+        const updatedTables = [...hotelData];
+        updatedTables[tableIndex].info.push({ name: "", detail: "" });
+        setHotelData(updatedTables);
+    };
+
+    // Remove a row from a specific table
+    const removeRow = (tableIndex, rowIndex) => {
+        const updatedTables = [...hotelData];
+        if (updatedTables[tableIndex].info.length > 1) {
+            updatedTables[tableIndex].info.splice(rowIndex, 1);
+            setHotelData(updatedTables);
+        }
+    };
+
+    // Update inputs
+    const handleInputChange = (tableIndex, rowIndex, field, value) => {
+        const updatedTables = [...hotelData];
+        if (field === "name" || field === "detail") {
+            updatedTables[tableIndex].info[rowIndex][field] = value;
+        } else {
+            updatedTables[tableIndex][field] = value;
+        }
+        setHotelData(updatedTables);
+    };
+
+
     // const data = [
     //     {
     //         day: "Day 1",
@@ -400,6 +459,97 @@ const PdfTwo = () => {
                 </div>
             </div>
 
+            <div>
+                {hotelData.map((table, tableIndex) => (
+                    <div key={tableIndex} className="border p-4 mb-4">
+                        <div className="flex justify-between mb-2">
+                            <input
+                                type="text"
+                                value={table.status}
+                                onChange={(e) =>
+                                    handleInputChange(tableIndex, null, "status", e.target.value)
+                                }
+                                placeholder="Enter Status (e.g., 4 Star)"
+                                className="border p-2"
+                            />
+                            <button
+                                onClick={() => removeTable(tableIndex)}
+                                className="text-red-500"
+                            >
+                                Remove Table
+                            </button>
+                        </div>
+
+                        {table.info.map((row, rowIndex) => (
+                            <div key={rowIndex} className="flex gap-4 mb-2">
+                                <input
+                                    type="text"
+                                    value={row.name}
+                                    onChange={(e) =>
+                                        handleInputChange(tableIndex, rowIndex, "name", e.target.value)
+                                    }
+                                    placeholder="Enter Name"
+                                    className="border p-2"
+                                />
+                                <input
+                                    type="text"
+                                    value={row.detail}
+                                    onChange={(e) =>
+                                        handleInputChange(
+                                            tableIndex,
+                                            rowIndex,
+                                            "detail",
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="Enter Detail"
+                                    className="border p-2"
+                                />
+                                <button
+                                    onClick={() => removeRow(tableIndex, rowIndex)}
+                                    className="text-red-500"
+                                >
+                                    Remove Row
+                                </button>
+                            </div>
+                        ))}
+                        <button
+                            onClick={() => addRow(tableIndex)}
+                            className="bg-blue-500 text-white p-2 mb-2"
+                        >
+                            Add Row
+                        </button>
+
+                        <div className="flex gap-4">
+                            <input
+                                type="text"
+                                value={table.adultCost}
+                                onChange={(e) =>
+                                    handleInputChange(tableIndex, null, "adultCost", e.target.value)
+                                }
+                                placeholder="Enter Adult Cost"
+                                className="border p-2"
+                            />
+                            <input
+                                type="text"
+                                value={table.childCost}
+                                onChange={(e) =>
+                                    handleInputChange(tableIndex, null, "childCost", e.target.value)
+                                }
+                                placeholder="Enter Child Cost"
+                                className="border p-2"
+                            />
+                        </div>
+                    </div>
+                ))}
+                <button onClick={addTable} className="bg-green-500 text-white p-2">
+                    Add Table
+                </button>
+
+                <pre className="mt-4 p-4 bg-gray-100 border">{JSON.stringify(hotelData, null, 2)}</pre>
+            </div>
+
+
 
 
 
@@ -464,12 +614,7 @@ const PdfTwo = () => {
                     </div>
                 </div>
 
-
-
-
-
-
-
+                {/* second third and four page automatically generated  */}
 
                 {
                     groups && groups.map((group, index) => (
@@ -618,39 +763,56 @@ const PdfTwo = () => {
                     ))
                 }
 
+                <div style={{
+                    backgroundImage: `url(${Media.backgroundlogo})`,
+                    backgroundSize: `cover`,
+                    backgroundPosition: `center`
+                }}
+                    className="w-full h-[858.75px] bg-red-300 flex flex-col justify-start items-center"
+                >
+
+                    <Header />
+
+                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+                        <p className='alice text-[15px] blue font-black'> <b>Land Package:</b></p>
+                        <p className='alice text-[15px] blue font-black mt-[26px]'> <b>Tour Cost JPY 259,000 /- Per Person</b></p>
+                        <p className='alice text-[15px] blue font-black'> <b>Tour Cost JPY 138,000 /- Per Child (Child above 6 Years)</b> </p>
+                    </div>
 
 
+                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+
+                        {
+                            hotelData.length > 1 && (
+                                <div>
+                                    <p className='alice text-[15px] blue font-black'> <b>Accomodations:</b></p>
+
+                                    <table className="w-full border-collapse mt-[43.85px]">
+                                        <thead>
+                                            <tr>
+                                                <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0" colSpan="2">{hotelData[0].status}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                hotelData[0].info.map((item, index) => (
+                                                    <tr>
+                                                        <td className="alice blue border border-black citycell pt-0">{item.name}</td>
+                                                        <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">{item.detail}</td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )
+                        }
 
 
+                    </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                </div>
 
 
             </div>
@@ -693,3 +855,25 @@ const PdfTwo = () => {
 
 export default PdfTwo;
 
+
+// const hotelData = [
+//     {
+//         status: "4 star",
+//         info: [
+//             {
+//                 name: "Tokyo",
+//                 detail: "Hotel East 21 Tokyo or Similar"
+//             },
+//             {
+//                 name: "Tokyo",
+//                 detail: "Hotel East 21 Tokyo or Similar"
+//             },
+//             {
+//                 name: "Tokyo",
+//                 detail: "Hotel East 21 Tokyo or Similar"
+//             },
+//         ],
+//         adultCost: "JPY 255,000 /- per adult",
+//         childCost: "JPY 255,000 /- per child (Child above 6 Years) ",
+//     }
+// ];
