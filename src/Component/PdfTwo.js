@@ -77,104 +77,150 @@ const PdfTwo = () => {
         }
     };
 
-
-    const data = [
+    // to add multiple days and their details 
+    const [data, setData] = useState([
         {
             day: "Day 1",
-            details: [
-                "Detail 1",
-                "Detail 2",
-                "Detail 3",
-                "Detail 4",
-                "Detail 5",
-                "Detail 6",
-                "Detail 7",
-                "Detail 8",
-                "Detail 9",
-                "Detail 10",
-                "Detail 11",
-                "Detail 12",
-                "Detail 13",
-                "Detail 14",
-                "Detail 15",
-                "Detail 16",
-            ],
+            details: ["Detail 1"],
         },
-        {
-            day: "Day 2",
-            details: ["Detail 1", "Detail 2", "Detail 3"],
-        },
-        {
-            day: "Day 3",
-            details: ["Detail 1", "Detail 2"],
-        },
-        {
-            day: "Day 4",
-            details: [
-                "Detail 1",
-                "Detail 2",
-                "Detail 3",
-                "Detail 4",
-                "Detail 5",
-                "Detail 6",
-                "Detail 7",
-                "Detail 8",
-                "Detail 9",
-                "Detail 10",
-                "Detail 11",
-                "Detail 12",
-                "Detail 13",
-                "Detail 14",
-                "Detail 15",
-                "Detail 16",
-                "Detail 16",
-            ],
-        },
-        {
-            day: "Day 5",
-            details: [
-                "Detail 1",
-                "Detail 2",
-                "Detail 3",
-                "Detail 4",
-                "Detail 5",
-                "Detail 6",
-                "Detail 7",
-                "Detail 8",
-                "Detail 9",
-                "Detail 10",
-                "Detail 11",
-                "Detail 12",
-                "Detail 13",
-                "Detail 14",
-                "Detail 15",
-                "Detail 16",
-                "Detail 16",
-            ],
-        },
-        {
-            day: "Day 5",
-            details: [
-                "Detail 1",
-                "Detail 2",
-                "Detail 3",
-                "Detail 4",
-                "Detail 5",
-                "Detail 6",
-                "Detail 7",
-                "Detail 8",
-                "Detail 9",
-                "Detail 10",
-                "Detail 11",
-                "Detail 12",
-                "Detail 13",
-                "Detail 14",
-                "Detail 15",
-                "Detail 16",
-                "Detail 16",
-            ],
+    ]);
+
+    const addDay = () => {
+        const newDayNumber = data.length + 1;
+        setData([...data, { day: `Day ${newDayNumber}`, details: ["Detail 1"] }]);
+    };
+    const removeDay = () => {
+        if (data.length > 1) {
+            const updatedData = [...data];
+            updatedData.pop();
+            setData(updatedData);
         }
-    ];
+    };
+
+    const addDetail = (dayIndex) => {
+        const updatedData = [...data];
+        updatedData[dayIndex].details.push(`Detail ${updatedData[dayIndex].details.length + 1}`);
+        setData(updatedData);
+    };
+
+    const removeLastDetail = (dayIndex) => {
+        const updatedData = [...data];
+        if (updatedData[dayIndex].details.length > 1) {
+            updatedData[dayIndex].details.pop();
+            setData(updatedData);
+        }
+    };
+
+    const handleDayChange = (value, index) => {
+        const updatedData = [...data];
+        updatedData[index].day = value;
+        setData(updatedData);
+    };
+
+    const handleDetailChange = (value, dayIndex, detailIndex) => {
+        const updatedData = [...data];
+        updatedData[dayIndex].details[detailIndex] = value;
+        setData(updatedData);
+    };
+
+
+    // const data = [
+    //     {
+    //         day: "Day 1",
+    //         details: [
+    //             "Detail 1",
+    //             "Detail 2",
+    //             "Detail 3",
+    //             "Detail 4",
+    //             "Detail 5",
+    //             "Detail 6",
+    //             "Detail 7",
+    //             "Detail 8",
+    //             "Detail 9",
+    //             "Detail 10",
+    //             "Detail 11",
+    //             "Detail 12",
+    //             "Detail 13",
+    //             "Detail 14",
+    //             "Detail 15",
+    //             "Detail 16",
+    //         ],
+    //     },
+    //     {
+    //         day: "Day 2",
+    //         details: ["Detail 1", "Detail 2", "Detail 3"],
+    //     },
+    //     {
+    //         day: "Day 3",
+    //         details: ["Detail 1", "Detail 2"],
+    //     },
+    //     {
+    //         day: "Day 4",
+    //         details: [
+    //             "Detail 1",
+    //             "Detail 2",
+    //             "Detail 3",
+    //             "Detail 4",
+    //             "Detail 5",
+    //             "Detail 6",
+    //             "Detail 7",
+    //             "Detail 8",
+    //             "Detail 9",
+    //             "Detail 10",
+    //             "Detail 11",
+    //             "Detail 12",
+    //             "Detail 13",
+    //             "Detail 14",
+    //             "Detail 15",
+    //             "Detail 16",
+    //             "Detail 16",
+    //         ],
+    //     },
+    //     {
+    //         day: "Day 5",
+    //         details: [
+    //             "Detail 1",
+    //             "Detail 2",
+    //             "Detail 3",
+    //             "Detail 4",
+    //             "Detail 5",
+    //             "Detail 6",
+    //             "Detail 7",
+    //             "Detail 8",
+    //             "Detail 9",
+    //             "Detail 10",
+    //             "Detail 11",
+    //             "Detail 12",
+    //             "Detail 13",
+    //             "Detail 14",
+    //             "Detail 15",
+    //             "Detail 16",
+    //             "Detail 16",
+    //         ],
+    //     },
+    //     {
+    //         day: "Day 5",
+    //         details: [
+    //             "Detail 1",
+    //             "Detail 2",
+    //             "Detail 3",
+    //             "Detail 4",
+    //             "Detail 5",
+    //             "Detail 6",
+    //             "Detail 7",
+    //             "Detail 8",
+    //             "Detail 9",
+    //             "Detail 10",
+    //             "Detail 11",
+    //             "Detail 12",
+    //             "Detail 13",
+    //             "Detail 14",
+    //             "Detail 15",
+    //             "Detail 16",
+    //             "Detail 16",
+    //         ],
+    //     }
+    // ];
 
     const limit = 19; // Maximum number of details allowed per div
     const groups = []; // To store the groups of days
@@ -250,6 +296,47 @@ const PdfTwo = () => {
                 onChange={handleImageChange}
                 className="mb-4"
             />
+
+            <div style={{ padding: "20px" }}>
+                {data.map((day, dayIndex) => (
+                    <div key={dayIndex} style={{ border: "1px solid black", margin: "10px", padding: "10px" }}>
+                        {/* Day Input */}
+                        <input
+                            type="text"
+                            value={day.day}
+                            onChange={(e) => handleDayChange(e.target.value, dayIndex)}
+                            style={{ marginBottom: "10px", display: "block", padding: "5px" }}
+                        />
+                        {/* Details Input */}
+                        {day.details.map((detail, detailIndex) => (
+                            <div key={detailIndex} style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
+                                <input
+                                    type="text"
+                                    value={detail}
+                                    onChange={(e) => handleDetailChange(e.target.value, dayIndex, detailIndex)}
+                                    style={{ flex: 1, padding: "5px" }}
+                                />
+                            </div>
+                        ))}
+                        {/* Buttons for Adding/Removing Details */}
+                        <button onClick={() => addDetail(dayIndex)} style={{ marginRight: "10px" }}>
+                            Add Detail
+                        </button>
+                        <button onClick={() => removeLastDetail(dayIndex)}>Remove Last Detail</button>
+                    </div>
+                ))}
+                {/* Add Day Button */}
+                <button onClick={addDay} style={{ marginTop: "20px" }}>
+                    Add Day
+                </button>
+                {/* Add Day Button */}
+                <button onClick={removeDay} style={{ marginTop: "20px" }}>
+                    Remove Day
+                </button>
+                {/* <pre style={{ marginTop: "20px", background: "#f4f4f4", padding: "10px" }}>
+                    {JSON.stringify(data, null, 2)}
+                </pre> */}
+            </div>
 
             {/* Circle File Inputs */}
             <div className="mb-8">
