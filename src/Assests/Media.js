@@ -1,4 +1,5 @@
 import logo from '../Assests/logo.png';
+import logo1 from '../Assests/logo1.png';
 import logonobg from '../Assests/logonobg.png';
 import call from '../Assests/call.png'
 import message from '../Assests/message.png'
@@ -10,6 +11,7 @@ import header from '../Assests/header.png'
 export default {
     logonobg,
     logo,
+    logo1,
     call,
     message,
     globe,
