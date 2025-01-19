@@ -14,6 +14,12 @@ const PdfTwo = () => {
     const [circleOne, setCircleOne] = useState(null)
     const [circleTwo, setCircleTwo] = useState(null)
     const [circleThree, setCircleThree] = useState(null)
+    const [circleFour, setCircleFour] = useState(null)
+    // square images 
+    const [sqOne, setSqOne] = useState(null)
+    const [sqTwo, setSqTwo] = useState(null)
+    const [sqThree, setSqThree] = useState(null)
+    const [sqFour, setSqFour] = useState(null)
 
     // circle images 
     const handleImageChangeCircleOne = (e) => {
@@ -32,6 +38,42 @@ const PdfTwo = () => {
         const file = e.target.files[0];
         if (file) {
             setCircleThree(URL.createObjectURL(file));
+        }
+    };
+    const handleImageChangeCircleFour = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setCircleFour(URL.createObjectURL(file));
+        }
+    };
+
+    //squares
+
+
+
+    // square iamges 
+    const handleImageSqureOne = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSqOne(URL.createObjectURL(file));
+        }
+    };
+    const handleImageSqureTwo = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSqTwo(URL.createObjectURL(file));
+        }
+    };
+    const handleImageSqureThree = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSqThree(URL.createObjectURL(file));
+        }
+    };
+    const handleImageSqureFour = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSqFour(URL.createObjectURL(file));
         }
     };
 
@@ -68,8 +110,70 @@ const PdfTwo = () => {
         },
         {
             day: "Day 4",
-            details: ["Detail 1", "Detail 2", "Detail 3", "Detail 4"],
+            details: [
+                "Detail 1",
+                "Detail 2",
+                "Detail 3",
+                "Detail 4",
+                "Detail 5",
+                "Detail 6",
+                "Detail 7",
+                "Detail 8",
+                "Detail 9",
+                "Detail 10",
+                "Detail 11",
+                "Detail 12",
+                "Detail 13",
+                "Detail 14",
+                "Detail 15",
+                "Detail 16",
+                "Detail 16",
+            ],
         },
+        {
+            day: "Day 5",
+            details: [
+                "Detail 1",
+                "Detail 2",
+                "Detail 3",
+                "Detail 4",
+                "Detail 5",
+                "Detail 6",
+                "Detail 7",
+                "Detail 8",
+                "Detail 9",
+                "Detail 10",
+                "Detail 11",
+                "Detail 12",
+                "Detail 13",
+                "Detail 14",
+                "Detail 15",
+                "Detail 16",
+                "Detail 16",
+            ],
+        },
+        {
+            day: "Day 5",
+            details: [
+                "Detail 1",
+                "Detail 2",
+                "Detail 3",
+                "Detail 4",
+                "Detail 5",
+                "Detail 6",
+                "Detail 7",
+                "Detail 8",
+                "Detail 9",
+                "Detail 10",
+                "Detail 11",
+                "Detail 12",
+                "Detail 13",
+                "Detail 14",
+                "Detail 15",
+                "Detail 16",
+                "Detail 16",
+            ],
+        }
     ];
 
     const limit = 19; // Maximum number of details allowed per div
@@ -127,6 +231,7 @@ const PdfTwo = () => {
 
     return (
         <div className='w-full h-fit flex flex-col justify-center items-center'>
+
             <input
                 type="text"
                 onChange={(e) => setLocationName(e.target.value)}
@@ -145,6 +250,7 @@ const PdfTwo = () => {
                 onChange={handleImageChange}
                 className="mb-4"
             />
+
             {/* Circle File Inputs */}
             <div className="mb-8">
                 <h2 className="text-[#293d69] font-semibold mb-4 text-lg">Circle Images</h2>
@@ -167,8 +273,49 @@ const PdfTwo = () => {
                             <input type="file" className="hidden" onChange={handleImageChangeCircleThree} />
                         </label>
                     </div>
+                    <div className="flex flex-col items-center">
+                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                            <span className="mb-2">Circle Four</span>
+                            <input type="file" className="hidden" onChange={handleImageChangeCircleFour} />
+                        </label>
+                    </div>
                 </div>
             </div>
+
+            {/* Square File Inputs */}
+            <div>
+                <h2 className="text-[#293d69] font-semibold mb-4 text-lg">Square Images</h2>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="flex flex-col items-center">
+                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                            <span className="mb-2">Square One</span>
+                            <input type="file" className="hidden" onChange={handleImageSqureOne} />
+                        </label>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                            <span className="mb-2">Square Two</span>
+                            <input type="file" className="hidden" onChange={handleImageSqureTwo} />
+                        </label>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                            <span className="mb-2">Square Three</span>
+                            <input type="file" className="hidden" onChange={handleImageSqureThree} />
+                        </label>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                            <span className="mb-2">Square Four</span>
+                            <input type="file" className="hidden" onChange={handleImageSqureFour} />
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+
+
 
 
             <button onClick={convertToPdf}>Download PDF</button>
@@ -231,89 +378,193 @@ const PdfTwo = () => {
                 </div>
 
 
-                {/* second page content  */}
-                <div style={{
-                    backgroundImage: `url(${Media.backgroundlogo})`,
-                    backgroundSize: `cover`,
-                    backgroundPosition: `center`
-                }}
-                    className="w-full h-[858.75px] bg-red-300 flex flex-col justify-start items-center border border-black"
-                >
-
-                    <Header />
-
-
-                    <div className='mt-[22.77px] flex flex-col justify-center items-center'>
-                        {/* title  */}
-                        <h3 className='alice text-[15px] blue'> <b>JAPAN</b></h3>
-                        <h3 className='alice text-[15px] blue'> <b>11 Nights, 12 Days</b></h3>
-                    </div>
 
 
 
-                    {/* main div that contains the right and left div  */}
-                    <div className='flex flex-row justify-center items-center gap-[11px] mt-[41px]'>
 
-                        {/* left div  */}
 
-                        <div className='flex flex-col w-[406px] h-[574px] bg-red-400 gap-6'>
+
+                {
+                    groups && groups.map((group, index) => (
+                        <div style={{
+                            backgroundImage: `url(${Media.backgroundlogo})`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center`
+                        }}
+                            className="w-full h-[858.75px] bg-red-300 flex flex-col justify-start items-center border border-black"
+                        >
+
+                            <Header />
 
                             {
-                                data.map((item, index) => (
-                                    <div key={index} className='flex flex-col justify-center items-start w-full h-fitgap-1'>
-                                        <p className='alice text-[15px] blue font-black'> <b>{item.day}</b></p>
-                                        <ul className='ml-[25px] alice blue'>
-                                            {
-                                                item.details.map((detail, detailIndex) => (
-                                                    <li key={detailIndex} className='list-disc text-wrap'>{detail}</li>
-                                                ))
-                                            }
-                                        </ul>
+                                index === 0 && (
+                                    <div className='mt-[22.77px] flex flex-col justify-center items-center'>
+                                        {/* title  */}
+                                        <h3 className='alice text-[15px] blue'> <b>JAPAN</b></h3>
+                                        <h3 className='alice text-[15px] blue'> <b>11 Nights, 12 Days</b></h3>
                                     </div>
-                                ))
+                                )
                             }
 
 
 
 
+
+                            {/* main div that contains the right and left div  */}
+                            <div className='flex flex-row justify-center items-center gap-[11px] mt-[41px]'>
+
+                                {/* left div  */}
+
+                                <div className='flex flex-col w-[406px] h-[574px] bg-red-400 gap-6'>
+
+                                    {
+                                        group.map((item, index) => (
+                                            <div key={index} className='flex flex-col justify-center items-start w-full h-fitgap-1'>
+                                                <p className='alice text-[15px] blue font-black'> <b>{item.day}</b></p>
+                                                <ul className='ml-[25px] alice blue'>
+                                                    {
+                                                        item.details.map((detail, detailIndex) => (
+                                                            <li key={detailIndex} className='list-disc text-wrap'>{detail}</li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+
+                                {/* right div  */}
+                                <div className='flex flex-col justify-center items-center w-[138px] h-[574px] bg-blue-400 gap-10'>
+
+                                    {
+                                        index === 0 && (
+                                            <div>
+
+
+                                                {/* circle one  */}
+                                                <div className='w-[138px] h-[138px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
+                                                    {/* smaller circle  */}
+                                                    <div className='w-[127.44px] h-[127.44px] overflow-hidden flex justify-center items-center rounded-full'>
+                                                        {circleOne &&
+                                                            <img className='scale-150' src={circleOne} alt="" />
+                                                        }
+                                                    </div>
+                                                </div>
+                                                {/* circle one  */}
+                                                <div className='w-[138px] h-[138px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
+                                                    {/* smaller circle  */}
+                                                    <div className='w-[127.44px] h-[127.44px] overflow-hidden flex justify-center items-center rounded-full'>
+                                                        {circleTwo &&
+                                                            <img className='scale-150' src={circleTwo} alt="" />
+                                                        }
+                                                    </div>
+                                                </div>
+                                                {/* circle one  */}
+                                                <div className='w-[138px] h-[138px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
+                                                    {/* smaller circle  */}
+                                                    <div className='w-[127.44px] h-[127.44px] overflow-hidden flex justify-center items-center rounded-full'>
+                                                        {circleThree &&
+                                                            <img className='scale-150' src={circleThree} alt="" />
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        )
+                                    }
+
+                                    {
+                                        index === 2 && (
+                                            <div className='w-[138px] h-[138px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
+                                                {/* smaller circle  */}
+                                                <div className='w-[127.44px] h-[127.44px] overflow-hidden flex justify-center items-center rounded-full'>
+                                                    {circleFour &&
+                                                        <img className='scale-150' src={circleFour} alt="" />
+                                                    }
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+
+
+                                </div>
+
+
+
+
+                            </div>
+                            {/* bottom part of the div  */}
+                            {
+                                index === 1 && (
+                                    <div className='flex flow-row justify-center items-center w-full h-fit gap-6 self-end mt-[18px]'>
+
+                                        {/* image div  */}
+                                        <div style={{ borderWidth: '2px' }} className='w-[104px] h-[108px] overflow-hidden border border-[#293d69] bg-[#293d69] rounded-[18px] flex justify-center items-center'>
+                                            {sqOne &&
+                                                <img className='scale-150' src={sqOne} alt="" />
+                                            }
+                                        </div>
+                                        {/* image div  */}
+                                        <div style={{ borderWidth: '2px' }} className='w-[104px] h-[108px] overflow-hidden border border-[#293d69] bg-[#293d69] rounded-[18px] flex justify-center items-center'>
+                                            {sqTwo &&
+                                                <img className='scale-150' src={sqTwo} alt="" />
+                                            }
+                                        </div>
+                                        {/* image div  */}
+                                        <div style={{ borderWidth: '2px' }} className='w-[104px] h-[108px] overflow-hidden border border-[#293d69] bg-[#293d69] rounded-[18px] flex justify-center items-center'>
+                                            {sqThree &&
+                                                <img className='scale-150' src={sqThree} alt="" />
+                                            }
+                                        </div>
+                                        {/* image div  */}
+                                        <div style={{ borderWidth: '2px' }} className='w-[104px] h-[108px] overflow-hidden border border-[#293d69] bg-[#293d69] rounded-[18px] flex justify-center items-center'>
+                                            {sqFour &&
+                                                <img className='scale-150' src={sqFour} alt="" />
+                                            }
+                                        </div>
+
+                                    </div>
+                                )
+                            }
+
                         </div>
+                    ))
+                }
 
-                        {/* right div  */}
-                        <div className='flex flex-col justify-center items-center w-[138px] h-[574px] bg-blue-400 gap-10'>
 
-                            {/* circle one  */}
-                            <div className='w-[138px] h-[138px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
-                                {/* smaller circle  */}
-                                <div className='w-[127.44px] h-[127.44px] overflow-hidden flex justify-center items-center rounded-full'>
-                                    {circleOne &&
-                                        <img className='scale-150' src={circleOne} alt="" />
-                                    }
-                                </div>
-                            </div>
-                            {/* circle one  */}
-                            <div className='w-[138px] h-[138px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
-                                {/* smaller circle  */}
-                                <div className='w-[127.44px] h-[127.44px] overflow-hidden flex justify-center items-center rounded-full'>
-                                    {circleTwo &&
-                                        <img className='scale-150' src={circleTwo} alt="" />
-                                    }
-                                </div>
-                            </div>
-                            {/* circle one  */}
-                            <div className='w-[138px] h-[138px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
-                                {/* smaller circle  */}
-                                <div className='w-[127.44px] h-[127.44px] overflow-hidden flex justify-center items-center rounded-full'>
-                                    {circleThree &&
-                                        <img className='scale-150' src={circleThree} alt="" />
-                                    }
-                                </div>
-                            </div>
 
-                        </div>
 
-                    </div>
 
-                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             </div>
 
@@ -345,6 +596,7 @@ const PdfTwo = () => {
                         ))}
                     </div>
                 ))}
+
             </div>
 
 
