@@ -11,6 +11,10 @@ const Pdf = () => {
     const [inlcusion, setInclusion] = useState('');
     const [exclusion, setExclusion] = useState('');
 
+    //last page
+    const [priceDisclaimer, setPriceDisclaimer] = useState('');
+    const [price, setPrice] = useState('');
+
     // first page 
     const [locationName, setLocationName] = useState('');
     const [dan, setDan] = useState('');
@@ -167,7 +171,7 @@ const Pdf = () => {
 
 
     const options = {
-        filename: 'my-document.pdf',
+        filename: `${locationName, title} `,
         margin: 0, // No margin to ensure the content fills the page
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 3 },
@@ -182,80 +186,119 @@ const Pdf = () => {
     return (
         <div className="">
 
-            <input placeholder='Enter the location name' type="text" value={locationName} onChange={(e) => setLocationName(e.target.value)} />
-            <input placeholder='Enter the Days and Nights' type="text" value={dan} onChange={(e) => setDan(e.target.value)} />
-            <input placeholder='Enter second page title' type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-            <input placeholder='Enter Hotel table heading' type="text" value={tableHeading} onChange={(e) => setTableHeading(e.target.value)} />
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+                {/* Form Inputs */}
+                <div className="space-y-4 mb-8">
+                    <input
+                        type="text"
+                        onChange={(e) => setLocationName(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Location Name"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setDan(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Dan"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Title"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setTableHeading(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Table Heading"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setPriceDisclaimer(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Price Disclaimer"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setPrice(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Actual price : Euro 1234"
+                    />
+                </div>
 
+                {/* Circle File Inputs */}
+                <div className="mb-8">
+                    <h2 className="text-[#293d69] font-semibold mb-4 text-lg">Circle Images</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="flex flex-col items-center">
+                            <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                                <span className="mb-2">Circle One</span>
+                                <input type="file" className="hidden" onChange={handleImageChangeCircleOne} />
+                            </label>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                                <span className="mb-2">Circle Two</span>
+                                <input type="file" className="hidden" onChange={handleImageChangeCircleTwo} />
+                            </label>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                                <span className="mb-2">Circle Three</span>
+                                <input type="file" className="hidden" onChange={handleImageChangeCircleThree} />
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
-            {/* add circle images  */}
-            <p>Circle one</p>
-            <input
-                type="file"
-                onChange={handleImageChangeCircleOne}
-                name=""
-                id=""
-            />
-            <p>Circle two</p>
-            <input
-                type="file"
-                onChange={handleImageChangeCircleTwo}
-                name=""
-                id=""
-            />
-            <p>Circle Three</p>
-            <input
-                type="file"
-                onChange={handleImageChangeCircleThree}
-                name=""
-                id=""
-            />
-
-            {/* add sqaure images  */}
-            <p>Square One</p>
-            <input
-                type="file"
-                onChange={handleImageSqureOne}
-                name=""
-                id=""
-            />
-            <p>Square Two</p>
-            <input
-                type="file"
-                onChange={handleImageSqureTwo}
-                name=""
-                id=""
-            />
-            <p>Square Three</p>
-            <input
-                type="file"
-                onChange={handleImageSqureThree}
-                name=""
-                id=""
-            />
-            <p>Square Four</p>
-            <input
-                type="file"
-                onChange={handleImageSqureFour}
-                name=""
-                id=""
-            />
-
-
-
-
-
-
-            <div>
+                {/* Square File Inputs */}
                 <div>
+                    <h2 className="text-[#293d69] font-semibold mb-4 text-lg">Square Images</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div className="flex flex-col items-center">
+                            <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                                <span className="mb-2">Square One</span>
+                                <input type="file" className="hidden" onChange={handleImageSqureOne} />
+                            </label>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                                <span className="mb-2">Square Two</span>
+                                <input type="file" className="hidden" onChange={handleImageSqureTwo} />
+                            </label>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                                <span className="mb-2">Square Three</span>
+                                <input type="file" className="hidden" onChange={handleImageSqureThree} />
+                            </label>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                                <span className="mb-2">Square Four</span>
+                                <input type="file" className="hidden" onChange={handleImageSqureFour} />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+                <div className="space-y-6">
                     {dates.map((date, dateIndex) => (
-                        <div key={dateIndex}>
-                            <div className="date-container">
+                        <div key={dateIndex} className="border border-[#293d69] rounded-lg p-4">
+                            <div className="date-container space-y-4">
                                 <input
                                     type="text"
                                     placeholder="Enter date"
                                     value={date.date}
                                     onChange={(e) => handleDateChange(dateIndex, e.target.value)}
+                                    className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
                                 />
                                 {date.activities.map((activity, activityIndex) => (
                                     <div key={activityIndex} className="activity-container">
@@ -264,6 +307,7 @@ const Pdf = () => {
                                             placeholder="Describe activity"
                                             value={activity}
                                             onChange={(e) => handleActivityChange(dateIndex, activityIndex, e.target.value)}
+                                            className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
                                         />
                                     </div>
                                 ))}
@@ -271,77 +315,128 @@ const Pdf = () => {
                         </div>
                     ))}
                 </div>
-                <button onClick={handleAddDate}>+ Add Date</button>
+                <button
+                    onClick={handleAddDate}
+                    className="mt-4 px-6 py-2 bg-white text-[#293d69] border-2 border-[#293d69] rounded-lg hover:bg-[#293d69] hover:text-white transition-colors duration-200 flex items-center gap-2"
+                >
+                    <span className="text-xl font-bold">+</span> Add Date
+                </button>
             </div>
+
+
             <div>
                 {inputGroups.map((group, index) => (
-                    <div key={index} style={{ marginBottom: '20px' }}>
-                        <div>
-                            <label>Destination:</label>
-                            <input
-                                type="text"
-                                name="destination"
-                                value={group.destination}
-                                onChange={(event) => handleInputChange(index, event)}
-                            />
+                    <div key={index} className="mb-8 p-6 border border-[#293d69] rounded-lg">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <label className="block text-[#293d69] font-medium">Destination:</label>
+                                <input
+                                    type="text"
+                                    name="destination"
+                                    value={group.destination}
+                                    onChange={(event) => handleInputChange(index, event)}
+                                    className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="block text-[#293d69] font-medium">Accommodation:</label>
+                                <input
+                                    type="text"
+                                    name="accommodation"
+                                    value={group.accommodation}
+                                    onChange={(event) => handleInputChange(index, event)}
+                                    className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="block text-[#293d69] font-medium">Room Category:</label>
+                                <input
+                                    type="text"
+                                    name="roomCategory"
+                                    value={group.roomCategory}
+                                    onChange={(event) => handleInputChange(index, event)}
+                                    className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="block text-[#293d69] font-medium">Number of Nights:</label>
+                                <input
+                                    type="text"
+                                    name="numberOfNights"
+                                    value={group.numberOfNights}
+                                    onChange={(event) => handleInputChange(index, event)}
+                                    className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="block text-[#293d69] font-medium">Check-in:</label>
+                                <input
+                                    type="text"
+                                    name="checkIn"
+                                    value={group.checkIn}
+                                    onChange={(event) => handleInputChange(index, event)}
+                                    className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="block text-[#293d69] font-medium">Check-out:</label>
+                                <input
+                                    type="text"
+                                    name="checkOut"
+                                    value={group.checkOut}
+                                    onChange={(event) => handleInputChange(index, event)}
+                                    className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                                />
+                            </div>
                         </div>
-                        <div>
-                            <label>Accommodation:</label>
-                            <input
-                                type="text"
-                                name="accommodation"
-                                value={group.accommodation}
-                                onChange={(event) => handleInputChange(index, event)}
-                            />
-                        </div>
-                        <div>
-                            <label>Room Category:</label>
-                            <input
-                                type="text"
-                                name="roomCategory"
-                                value={group.roomCategory}
-                                onChange={(event) => handleInputChange(index, event)}
-                            />
-                        </div>
-                        <div>
-                            <label>Number of Nights:</label>
-                            <input
-                                type="text"
-                                name="numberOfNights"
-                                value={group.numberOfNights}
-                                onChange={(event) => handleInputChange(index, event)}
-                            />
-                        </div>
-                        <div>
-                            <label>Check-in:</label>
-                            <input
-                                type="text"
-                                name="checkIn"
-                                value={group.checkIn}
-                                onChange={(event) => handleInputChange(index, event)}
-                            />
-                        </div>
-                        <div>
-                            <label>Check-out:</label>
-                            <input
-                                type="text"
-                                name="checkOut"
-                                value={group.checkOut}
-                                onChange={(event) => handleInputChange(index, event)}
-                            />
-                        </div>
-                        {/* Add a plus button to add a new group */}
+
                         {index === inputGroups.length - 1 && (
-                            <button onClick={addNewGroup} style={{ marginTop: '10px' }}>
-                                + Add another group
+                            <button
+                                onClick={addNewGroup}
+                                className="mt-6 px-6 py-2 bg-white text-[#293d69] border-2 border-[#293d69] rounded-lg hover:bg-[#293d69] hover:text-white transition-colors duration-200 flex items-center gap-2"
+                            >
+                                <span className="text-xl font-bold">+</span> Add another group
                             </button>
                         )}
                     </div>
                 ))}
 
-                <textarea className='w-full' name="" placeholder='notes : add a full stop after every disclaimer' value={notes} onChange={(e) => setNotes(e.target.value)} id=""></textarea>
-                <textarea className='w-full' name="" placeholder='Inclusion : add a full stop after every line' value={inlcusion} onChange={(e) => setInclusion(e.target.value)} id=""></textarea>
-                <textarea className='w-full' name="" placeholder='Exclusion : add a full stop after every line' value={exclusion} onChange={(e) => setExclusion(e.target.value)} id=""></textarea>
+                <div className="space-y-6 bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+                    <div className="space-y-2">
+                        <textarea
+                            className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
+                            placeholder="Notes : add a full stop after every disclaimer"
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="space-y-2">
+                        <textarea
+                            className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
+                            placeholder="Inclusion : add a full stop after every line"
+                            value={inlcusion}
+                            onChange={(e) => setInclusion(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="space-y-2">
+                        <textarea
+                            className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
+                            placeholder="Exclusion : add a full stop after every line"
+                            value={exclusion}
+                            onChange={(e) => setExclusion(e.target.value)}
+                        />
+                    </div>
+                </div>
+
+
+
                 {/* Render a table based on the inputGroups state */}
                 <table border="1" style={{ marginTop: '30px', width: '100%' }}>
                     <thead>
@@ -414,6 +509,11 @@ const Pdf = () => {
 
                 {/* Second page content */}
                 <div
+                    style={{
+                        backgroundImage: `url(${Media.backgroundlogo})`,
+                        backgroundSize: `cover`,
+                        backgroundPosition: `center`
+                    }}
                     className="w-full h-[858.75px] bg-green-300 flex flex-col justify-start items-center"
                 >
                     <Header />
@@ -444,12 +544,12 @@ const Pdf = () => {
                                 <tbody>
                                     {inputGroups.slice(0, 2).map((group, index) => (
                                         <tr key={index}>
-                                            <td className="alice blue border border-black p-2">{group.destination}</td>
-                                            <td className="alice blue border border-black p-2 wrap-accommodation">{group.accommodation}</td>
-                                            <td className="alice blue border border-black p-2 text-center">{group.roomCategory}</td>
-                                            <td className="alice blue border border-black p-2 text-center">{group.numberOfNights}</td>
-                                            <td className="alice blue border border-black p-2 text-center">{group.checkIn}</td>
-                                            <td className="alice blue border border-black p-2 text-center">{group.checkOut}</td>
+                                            <td className="alice blue border border-black p-2 pt-0">{group.destination}</td>
+                                            <td className="alice blue border border-black p-2 wrap-accommodation pt-0">{group.accommodation}</td>
+                                            <td className="alice blue border border-black p-2 text-center pt-0">{group.roomCategory}</td>
+                                            <td className="alice blue border border-black p-2 text-center pt-0">{group.numberOfNights}</td>
+                                            <td className="alice blue border border-black p-2 text-center pt-0">{group.checkIn}</td>
+                                            <td className="alice blue border border-black p-2 text-center pt-0">{group.checkOut}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -469,7 +569,7 @@ const Pdf = () => {
                             {/* smaller circle  */}
                             <div className='w-[169px] h-[169px] overflow-hidden flex justify-center items-center rounded-full'>
                                 {circleOne &&
-                                    <img src={circleOne} alt="" />
+                                    <img className='scale-150' src={circleOne} alt="" />
                                 }
                             </div>
                         </div>
@@ -478,7 +578,7 @@ const Pdf = () => {
                             {/* smaller circle  */}
                             <div className='w-[122.83px] h-[122.83px] overflow-hidden flex justify-center items-center rounded-full'>
                                 {circleTwo &&
-                                    <img src={circleTwo} alt="" />
+                                    <img className='scale-150' src={circleTwo} alt="" />
                                 }
                             </div>
                         </div>
@@ -487,7 +587,7 @@ const Pdf = () => {
                             {/* smaller circle  */}
                             <div className='w-[81.27px] h-[81.27px] overflow-hidden flex justify-center items-center rounded-full'>
                                 {circleThree &&
-                                    <img src={circleThree} alt="" />
+                                    <img className='scale-150' src={circleThree} alt="" />
                                 }
                             </div>
                         </div>
@@ -500,7 +600,11 @@ const Pdf = () => {
 
                 {
                     inputGroups.length > 2 && (
-                        <div
+                        <div style={{
+                            backgroundImage: `url(${Media.backgroundlogo})`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center`
+                        }}
                             className="w-full h-[858.75px] bg-green-300 flex flex-col justify-start items-center"
                         >
                             <Header />
@@ -553,6 +657,11 @@ const Pdf = () => {
 
                 {/* real third page  */}
                 <div
+                    style={{
+                        backgroundImage: `url(${Media.backgroundlogo})`,
+                        backgroundSize: `cover`,
+                        backgroundPosition: `center`
+                    }}
                     className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
                 >
 
@@ -564,15 +673,15 @@ const Pdf = () => {
                         <table className="w-full border-collapse mt-[43.85px]">
                             <thead>
                                 <tr>
-                                    <th className="alice border border-black bg-[#293D69] text-white p-2">Date</th>
-                                    <th className="alice border border-black bg-[#293D69] text-white p-2">{heading}</th>
+                                    <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">Date</th>
+                                    <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">{heading}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {dates.slice(0, 17).map((date, dateIndex) => (
+                                {dates.slice(0, 11).map((date, dateIndex) => (
                                     <tr key={dateIndex}>
-                                        <td className="alice blue border border-black p-2">{date.date}</td>
-                                        <td className="alice blue border border-black p-2 wrap-accommodation">{date.activities}</td>
+                                        <td className="alice blue border border-black datecell pt-0">{date.date}</td>
+                                        <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">{date.activities}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -584,8 +693,13 @@ const Pdf = () => {
 
 
                 {
-                    dates.length > 17 && (
+                    dates.length > 11 && (
                         <div
+                            style={{
+                                backgroundImage: `url(${Media.backgroundlogo})`,
+                                backgroundSize: `cover`,
+                                backgroundPosition: `center`
+                            }}
                             className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
                         >
 
@@ -597,16 +711,16 @@ const Pdf = () => {
                                 <table className="w-full border-collapse mt-[43.85px]">
                                     <thead>
                                         <tr>
-                                            <th className="alice border border-black bg-[#293D69] text-white p-2">Date</th>
-                                            <th className="alice border border-black bg-[#293D69] text-white p-2">{heading} </th>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">Date</th>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">{heading} </th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {dates.slice(17, 33).map((date, dateIndex) => (
+                                        {dates.slice(12, 22).map((date, dateIndex) => (
                                             <tr key={dateIndex}>
-                                                <td className="alice blue border border-black p-2">{date.date}</td>
-                                                <td className="alice blue border border-black p-2 wrap-accommodation">{date.activities}</td>
+                                                <td className="alice blue border border-black datecell pt-0">{date.date}</td>
+                                                <td className="alice blue border border-black p-2 wrap-accommodation pt-0">{date.activities}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -617,8 +731,12 @@ const Pdf = () => {
                     )
                 }
                 {
-                    dates.length > 33 && (
-                        <div
+                    dates.length > 22 && (
+                        <div style={{
+                            backgroundImage: `url(${Media.backgroundlogo})`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center`
+                        }}
                             className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
                         >
 
@@ -630,16 +748,16 @@ const Pdf = () => {
                                 <table className="w-full border-collapse mt-[43.85px]">
                                     <thead>
                                         <tr>
-                                            <th className="alice border border-black bg-[#293D69] text-white p-2">Date</th>
-                                            <th className="alice border border-black bg-[#293D69] text-white p-2">Sightseeing on SIC basis <br /> no hotel pickup or drop off </th>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">Date</th>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">Sightseeing on SIC basis <br /> no hotel pickup or drop off </th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {dates.slice(33).map((date, dateIndex) => (
+                                        {dates.slice(21).map((date, dateIndex) => (
                                             <tr key={dateIndex}>
-                                                <td className="alice blue border border-black p-2">{date.date}</td>
-                                                <td className="alice blue border border-black p-2 wrap-accommodation">{date.activities}</td>
+                                                <td className="alice blue border border-black datecell pt-0">{date.date}</td>
+                                                <td className="alice blue border border-black p-2 wrap-accommodation pt-0">{date.activities}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -652,16 +770,20 @@ const Pdf = () => {
 
 
                 {/* real third page  */}
-                <div
+                <div style={{
+                    backgroundImage: `url(${Media.backgroundlogo})`,
+                    backgroundSize: `cover`,
+                    backgroundPosition: `center`
+                }}
                     className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
                 >
 
                     <Header />
 
                     <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
-                        <p className='alice text-[15px] blue font-black'>FINLAND 7 N 8 D</p>
-                        <p className='alice text-[15px] blue font-black'>per person on DBL/TWIN sharing basis</p>
-                        <p className='alice text-[15px] blue font-black'>Euro 2381</p>
+                        <p className='alice text-[15px] blue font-black'> <b>{title}</b></p>
+                        <p className='alice text-[15px] blue font-black'> <b>{priceDisclaimer}</b></p>
+                        <p className='alice text-[15px] blue font-black'> <b>{price}</b> </p>
                     </div>
 
                     {/* notes  */}
@@ -669,7 +791,7 @@ const Pdf = () => {
                     {
                         notes && (
                             <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
-                                <p className='alice text-[15px] blue font-black'>Note:</p>
+                                <p className='alice text-[15px] blue font-black'> <b>Note:</b></p>
                                 {
                                     notesArray.map((note, noteIndex) => (
                                         <ul className='ml-12 alice blue'>
@@ -721,14 +843,18 @@ const Pdf = () => {
 
                 {
                     (inlcusion !== "" || exclusion !== "") && (
-                        <div
+                        <div style={{
+                            backgroundImage: `url(${Media.backgroundlogo})`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center`
+                        }}
                             className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
                         >
                             <Header />
                             {
                                 inlcusion && (
                                     <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
-                                        <p className='alice text-[15px] blue font-black'>Inclusion:</p>
+                                        <p className='alice text-[15px] blue font-black'><b>Inclusion:</b></p>
                                         {
                                             incArray.map((inc, incIndex) => (
                                                 <ul className='ml-12 alice blue'>
@@ -742,7 +868,7 @@ const Pdf = () => {
                             {
                                 exclusion && (
                                     <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
-                                        <p className='alice text-[15px] blue font-black'>Exclusion:</p>
+                                        <p className='alice text-[15px] blue font-black'><b>Exclusion:</b></p>
                                         {
                                             excArray.map((exc, excIndex) => (
                                                 <ul className='ml-12 alice blue'>
