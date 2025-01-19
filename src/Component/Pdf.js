@@ -126,6 +126,16 @@ const Pdf = () => {
         ]);
     };
 
+    const removeLastGroup = () => {
+        setInputGroups(prevGroups => {
+            if (prevGroups.length > 1) {
+                return prevGroups.slice(0, -1); // Remove the last element
+            }
+            return prevGroups; // If no groups are left, return the array as is
+        });
+    };
+
+
     console.log(inputGroups.length)
 
     // table for adding itnery 
@@ -151,6 +161,15 @@ const Pdf = () => {
             { date: '', activities: [''] },
         ]);
     };
+    const handleRemoveLastDate = () => {
+        setDates(prevDates => {
+            if (prevDates.length > 1) {
+                return prevDates.slice(0, -1); // Remove the last element
+            }
+            return prevDates; // If no dates are left, return the array as is
+        });
+    };
+
 
     const handleDateChange = (index, value) => {
         const newDates = [...dates];
@@ -321,6 +340,12 @@ const Pdf = () => {
                 >
                     <span className="text-xl font-bold">+</span> Add Date
                 </button>
+                <button
+                    onClick={handleRemoveLastDate}
+                    className="mt-4 px-6 py-2 bg-white text-[#293d69] border-2 border-[#293d69] rounded-lg hover:bg-[#293d69] hover:text-white transition-colors duration-200 flex items-center gap-2"
+                >
+                    <span className="text-xl font-bold">-</span> Add Date
+                </button>
             </div>
 
 
@@ -396,12 +421,20 @@ const Pdf = () => {
                         </div>
 
                         {index === inputGroups.length - 1 && (
-                            <button
-                                onClick={addNewGroup}
-                                className="mt-6 px-6 py-2 bg-white text-[#293d69] border-2 border-[#293d69] rounded-lg hover:bg-[#293d69] hover:text-white transition-colors duration-200 flex items-center gap-2"
-                            >
-                                <span className="text-xl font-bold">+</span> Add another group
-                            </button>
+                            <>
+                                <button
+                                    onClick={addNewGroup}
+                                    className="mt-6 px-6 py-2 bg-white text-[#293d69] border-2 border-[#293d69] rounded-lg hover:bg-[#293d69] hover:text-white transition-colors duration-200 flex items-center gap-2"
+                                >
+                                    <span className="text-xl font-bold">+</span> Add another group
+                                </button>
+                                <button
+                                    onClick={removeLastGroup}
+                                    className="mt-6 px-6 py-2 bg-white text-[#293d69] border-2 border-[#293d69] rounded-lg hover:bg-[#293d69] hover:text-white transition-colors duration-200 flex items-center gap-2"
+                                >
+                                    <span className="text-xl font-bold">-</span> Remove the recently added group
+                                </button>
+                            </>
                         )}
                     </div>
                 ))}
