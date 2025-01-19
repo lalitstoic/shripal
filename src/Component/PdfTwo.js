@@ -605,7 +605,7 @@ const PdfTwo = () => {
                                 {/* image with its div */}
                                 <div className='flex justify-center items-center overflow-hidden w-[19px] h-[19px] rounded-full'>
                                     {/* svg image */}
-                                    <img src={Media.call} />
+                                    <img src={Media.whitecall} />
                                 </div>
                                 {/* the text */}
                                 <p className='alice text-[12.6px] text-white'>
@@ -617,7 +617,7 @@ const PdfTwo = () => {
                                 {/* image with its div */}
                                 <div className='flex justify-center items-center overflow-hidden w-[19px] h-[19px] rounded-full'>
                                     {/* svg image */}
-                                    <img src={Media.call} />
+                                    <img src={Media.whitemessage} />
                                 </div>
                                 {/* the text */}
                                 <p className='alice text-[12.6px] text-white'>
@@ -814,8 +814,8 @@ const PdfTwo = () => {
                                     {
                                         hotelData[0].info.map((item, index) => (
                                             <tr key={index}>
-                                                <td className="alice blue border border-black citycell pt-0">Hotel Cost - {item.name}</td>
-                                                <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">Hotel Cost - {item.detail}</td>
+                                                <td className="alice blue border border-black citycell pt-0">{item.name}</td>
+                                                <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">{item.detail}</td>
                                             </tr>
                                         ))
                                     }

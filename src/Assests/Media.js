@@ -7,6 +7,8 @@ import globe from '../Assests/globe.png'
 import location from '../Assests/location.png'
 import backgroundlogo from '../Assests/backgroundlogo.png'
 import header from '../Assests/header.png'
+import whitecall from '../Assests/whitecall.png'
+import whitemessage from '../Assests/whitemessage.png'
 
 export default {
     logonobg,
@@ -18,4 +20,6 @@ export default {
     location,
     backgroundlogo,
     header,
+    whitecall,
+    whitemessage,
 }
