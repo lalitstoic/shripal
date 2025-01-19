@@ -10,6 +10,13 @@ const PdfTwo = () => {
     const contentRef = useRef(null);
     const [image, setImage] = useState(null)
 
+    const [landPackageAdult, setLandPackageAdult] = useState('Tour Cost ')
+    const [landPackageChild, setLandPackageChild] = useState('Tour Cost ')
+
+    const [notes, setNotes] = useState('');
+    const [inlcusion, setInclusion] = useState('');
+    const [exclusion, setExclusion] = useState('');
+
     // circle images 
     const [circleOne, setCircleOne] = useState(null)
     const [circleTwo, setCircleTwo] = useState(null)
@@ -20,6 +27,14 @@ const PdfTwo = () => {
     const [sqTwo, setSqTwo] = useState(null)
     const [sqThree, setSqThree] = useState(null)
     const [sqFour, setSqFour] = useState(null)
+
+
+    // notes code here 
+    const notesArray = notes.split(".")
+    // inclusion code here 
+    const incArray = inlcusion.split(".")
+    // notes code here 
+    const excArray = exclusion.split(".")
 
     // circle images 
     const handleImageChangeCircleOne = (e) => {
@@ -81,7 +96,7 @@ const PdfTwo = () => {
     const [data, setData] = useState([
         {
             day: "Day 1",
-            details: ["Detail 1"],
+            details: [""],
         },
     ]);
 
@@ -355,6 +370,20 @@ const PdfTwo = () => {
                 onChange={handleImageChange}
                 className="mb-4"
             />
+            <input
+                type="text"
+                onChange={(e) => setLandPackageAdult(e.target.value)}
+                placeholder='Land package for adults'
+                value={landPackageAdult}
+                className="mb-4"
+            />
+            <input
+                type="text"
+                onChange={(e) => setLandPackageChild(e.target.value)}
+                placeholder='Land package for adults'
+                value={landPackageChild}
+                className="mb-4"
+            />
 
             <div style={{ padding: "20px" }}>
                 {data.map((day, dayIndex) => (
@@ -546,7 +575,37 @@ const PdfTwo = () => {
                     Add Table
                 </button>
 
-                <pre className="mt-4 p-4 bg-gray-100 border">{JSON.stringify(hotelData, null, 2)}</pre>
+                {/* <pre className="mt-4 p-4 bg-gray-100 border">{JSON.stringify(hotelData, null, 2)}</pre> */}
+
+            </div>
+
+            <div className="space-y-6 bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+                <div className="space-y-2">
+                    <textarea
+                        className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
+                        placeholder="Notes : add a full stop after every disclaimer"
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                    />
+                </div>
+
+                <div className="space-y-2">
+                    <textarea
+                        className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
+                        placeholder="Inclusion : add a full stop after every line"
+                        value={inlcusion}
+                        onChange={(e) => setInclusion(e.target.value)}
+                    />
+                </div>
+
+                <div className="space-y-2">
+                    <textarea
+                        className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
+                        placeholder="Exclusion : add a full stop after every line"
+                        value={exclusion}
+                        onChange={(e) => setExclusion(e.target.value)}
+                    />
+                </div>
             </div>
 
 
@@ -623,7 +682,7 @@ const PdfTwo = () => {
                             backgroundSize: `cover`,
                             backgroundPosition: `center`
                         }}
-                            className="w-full h-[858.75px] bg-red-300 flex flex-col justify-start items-center border border-black"
+                            className="w-full h-[858.75px] flex flex-col justify-start items-center"
                         >
 
                             <Header />
@@ -632,8 +691,8 @@ const PdfTwo = () => {
                                 index === 0 && (
                                     <div className='mt-[22.77px] flex flex-col justify-center items-center'>
                                         {/* title  */}
-                                        <h3 className='alice text-[15px] blue'> <b>JAPAN</b></h3>
-                                        <h3 className='alice text-[15px] blue'> <b>11 Nights, 12 Days</b></h3>
+                                        <h3 className='alice text-[15px] blue'> <b>{locationName}</b></h3>
+                                        <h3 className='alice text-[15px] blue'> <b>{dan}</b></h3>
                                     </div>
                                 )
                             }
@@ -647,7 +706,7 @@ const PdfTwo = () => {
 
                                 {/* left div  */}
 
-                                <div className='flex flex-col w-[406px] h-[574px] bg-red-400 gap-6'>
+                                <div className='flex flex-col w-[406px] h-[574px] gap-6'>
 
                                     {
                                         group.map((item, index) => (
@@ -666,11 +725,11 @@ const PdfTwo = () => {
                                 </div>
 
                                 {/* right div  */}
-                                <div className='flex flex-col justify-center items-center w-[138px] h-[574px] bg-blue-400 gap-10'>
+                                <div className='flex flex-col justify-center items-center w-[138px] h-[574px] gap-10'>
 
                                     {
                                         index === 0 && (
-                                            <div>
+                                            <div className='flex flex-col gap-10'>
 
 
                                                 {/* circle one  */}
@@ -763,20 +822,23 @@ const PdfTwo = () => {
                     ))
                 }
 
+
+                {/* new page  */}
+
                 <div style={{
                     backgroundImage: `url(${Media.backgroundlogo})`,
                     backgroundSize: `cover`,
                     backgroundPosition: `center`
                 }}
-                    className="w-full h-[858.75px] bg-red-300 flex flex-col justify-start items-center"
+                    className="w-full h-[858.75px] flex flex-col justify-start items-center"
                 >
 
                     <Header />
 
                     <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
                         <p className='alice text-[15px] blue font-black'> <b>Land Package:</b></p>
-                        <p className='alice text-[15px] blue font-black mt-[26px]'> <b>Tour Cost JPY 259,000 /- Per Person</b></p>
-                        <p className='alice text-[15px] blue font-black'> <b>Tour Cost JPY 138,000 /- Per Child (Child above 6 Years)</b> </p>
+                        <p className='alice text-[15px] blue font-black mt-[26px]'> <b>{landPackageAdult}</b></p>
+                        <p className='alice text-[15px] blue font-black'> <b>{landPackageChild}</b> </p>
                     </div>
 
 
@@ -796,9 +858,9 @@ const PdfTwo = () => {
                                         <tbody>
                                             {
                                                 hotelData[0].info.map((item, index) => (
-                                                    <tr>
-                                                        <td className="alice blue border border-black citycell pt-0">{item.name}</td>
-                                                        <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">{item.detail}</td>
+                                                    <tr key={index}>
+                                                        <td className="alice blue border border-black citycell pt-0">Hotel Cost - {item.name}</td>
+                                                        <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">Hotel Cost - {item.detail}</td>
                                                     </tr>
                                                 ))
                                             }
@@ -807,46 +869,145 @@ const PdfTwo = () => {
                                 </div>
                             )
                         }
-
-
                     </div>
 
 
                 </div>
 
 
-            </div>
+                {
+                    hotelData.slice(1).map((item, index) => (
+                        <div key={index} style={{
+                            backgroundImage: `url(${Media.backgroundlogo})`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center`
+                        }}
+                            className="w-full h-[858.75px] bg-red-300 flex flex-col justify-start items-center"
+                        >
 
+                            <Header />
 
+                            <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[128px]'>
 
+                                <div>
+                                    <table className="w-full border-collapse mt-[43.85px]">
+                                        <thead>
+                                            <tr>
+                                                <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0" colSpan="2">{item.status}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                item.info.map((value, valueIndex) => (
+                                                    <tr key={valueIndex}>
+                                                        <td className="alice blue border border-black citycell pt-0">{value.name}</td>
+                                                        <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">{value.detail}</td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div className='flex flex-col justify-center items-start w-full h-fit gap-1 mt-[58px]'>
+                                        <p className='alice text-[15px] blue font-black mt-[26px]'>Hotel Cost - <b>{item.adultCost}</b></p>
+                                        <p className='alice text-[15px] blue font-black'>Hotel Cost - <b>{item.childCost}</b> </p>
+                                    </div>
+                                </div>
 
-
-
-
-
-
-
-
-
-
-
-
-            <div>
-                {groups.map((group, index) => (
-                    <div key={index} style={{ border: "1px solid black", margin: "10px", padding: "10px" }}>
-                        <h3>Div {index + 1}</h3>
-                        {group.map((day) => (
-                            <div key={day.day}>
-                                <h4>{day.day}</h4>
-                                {day.details.map((detail, idx) => (
-                                    <p key={idx}>{detail}</p>
-                                ))}
                             </div>
-                        ))}
-                    </div>
-                ))}
+
+
+                        </div>
+                    ))
+                }
+
+
+                {
+                    (inlcusion !== "" || exclusion !== "") && (
+                        <div style={{
+                            backgroundImage: `url(${Media.backgroundlogo})`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center`
+                        }}
+                            className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
+                        >
+                            <Header />
+                            {
+                                inlcusion && (
+                                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+                                        <p className='alice text-[15px] blue font-black'><b>Inclusion:</b></p>
+                                        {
+                                            incArray.map((inc, incIndex) => (
+                                                <ul className='ml-12 alice blue'>
+                                                    <li key={incIndex} className='list-disc text-wrap'>{inc}</li>
+                                                </ul>
+                                            ))
+                                        }
+                                    </div>
+                                )
+                            }
+                            {
+                                exclusion && (
+                                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+                                        <p className='alice text-[15px] blue font-black'><b>Exclusion:</b></p>
+                                        {
+                                            excArray.map((exc, excIndex) => (
+                                                <ul className='ml-12 alice blue'>
+                                                    <li key={excIndex} className='list-disc text-wrap'>{exc}</li>
+
+                                                </ul>
+                                            ))
+                                        }
+                                    </div>
+                                )
+                            }
+                        </div>
+                    )
+                }
+
+                {
+                    (notes !== "") && (
+                        <div style={{
+                            backgroundImage: `url(${Media.backgroundlogo})`,
+                            backgroundSize: `cover`,
+                            backgroundPosition: `center`
+                        }}
+                            className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
+                        >
+                            <Header />
+                            {
+                                notes && (
+                                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+                                        <p className='alice text-[15px] blue font-black'><b>Note:</b></p>
+                                        {
+                                            notesArray.map((note, noteIndex) => (
+                                                <ul className='ml-12 alice blue'>
+                                                    <li key={noteIndex} className='list-disc text-wrap'>{note}</li>
+
+                                                </ul>
+                                            ))
+                                        }
+                                    </div>
+                                )
+                            }
+                        </div>
+                    )
+                }
 
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         </div>
