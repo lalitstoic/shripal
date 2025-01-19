@@ -6,12 +6,11 @@ import Header from './Header';
 const PdfTwo = () => {
     const [locationName, setLocationName] = useState('')
     const [dan, setDan] = useState('');
-    const [title, setTitle] = useState('')
     const contentRef = useRef(null);
     const [image, setImage] = useState(null)
 
-    const [landPackageAdult, setLandPackageAdult] = useState('Tour Cost ')
-    const [landPackageChild, setLandPackageChild] = useState('Tour Cost ')
+    const [landPackageAdult, setLandPackageAdult] = useState('')
+    const [landPackageChild, setLandPackageChild] = useState('')
 
     const [notes, setNotes] = useState('');
     const [inlcusion, setInclusion] = useState('');
@@ -330,7 +329,7 @@ const PdfTwo = () => {
 
     //pdf generating code
     const options = {
-        filename: `${locationName, title} || noheading`,
+        filename: `${locationName, dan}`,
         margin: 0, // No margin to ensure the content fills the page
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 4 },
@@ -352,269 +351,227 @@ const PdfTwo = () => {
     return (
         <div className='w-full h-fit flex flex-col justify-center items-center'>
 
-            <input
-                type="text"
-                onChange={(e) => setLocationName(e.target.value)}
-                className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
-                placeholder="Location Name"
-            />
-            <input
-                type="text"
-                onChange={(e) => setDan(e.target.value)}
-                className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
-                placeholder="Dan"
-            />
-            <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="mb-4"
-            />
-            <input
-                type="text"
-                onChange={(e) => setLandPackageAdult(e.target.value)}
-                placeholder='Land package for adults'
-                value={landPackageAdult}
-                className="mb-4"
-            />
-            <input
-                type="text"
-                onChange={(e) => setLandPackageChild(e.target.value)}
-                placeholder='Land package for adults'
-                value={landPackageChild}
-                className="mb-4"
-            />
-
-            <div style={{ padding: "20px" }}>
-                {data.map((day, dayIndex) => (
-                    <div key={dayIndex} style={{ border: "1px solid black", margin: "10px", padding: "10px" }}>
-                        {/* Day Input */}
-                        <input
-                            type="text"
-                            value={day.day}
-                            onChange={(e) => handleDayChange(e.target.value, dayIndex)}
-                            style={{ marginBottom: "10px", display: "block", padding: "5px" }}
-                        />
-                        {/* Details Input */}
-                        {day.details.map((detail, detailIndex) => (
-                            <div key={detailIndex} style={{ display: "flex", alignItems: "center", marginBottom: "5px" }}>
-                                <input
-                                    type="text"
-                                    value={detail}
-                                    onChange={(e) => handleDetailChange(e.target.value, dayIndex, detailIndex)}
-                                    style={{ flex: 1, padding: "5px" }}
-                                />
-                            </div>
-                        ))}
-                        {/* Buttons for Adding/Removing Details */}
-                        <button onClick={() => addDetail(dayIndex)} style={{ marginRight: "10px" }}>
-                            Add Detail
-                        </button>
-                        <button onClick={() => removeLastDetail(dayIndex)}>Remove Last Detail</button>
-                    </div>
-                ))}
-                {/* Add Day Button */}
-                <button onClick={addDay} style={{ marginTop: "20px" }}>
-                    Add Day
-                </button>
-                {/* Add Day Button */}
-                <button onClick={removeDay} style={{ marginTop: "20px" }}>
-                    Remove Day
-                </button>
-                {/* <pre style={{ marginTop: "20px", background: "#f4f4f4", padding: "10px" }}>
-                    {JSON.stringify(data, null, 2)}
-                </pre> */}
-            </div>
-
-            {/* Circle File Inputs */}
-            <div className="mb-8">
-                <h2 className="text-[#293d69] font-semibold mb-4 text-lg">Circle Images</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="flex flex-col items-center">
-                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
-                            <span className="mb-2">Circle One</span>
-                            <input type="file" className="hidden" onChange={handleImageChangeCircleOne} />
-                        </label>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
-                            <span className="mb-2">Circle Two</span>
-                            <input type="file" className="hidden" onChange={handleImageChangeCircleTwo} />
-                        </label>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
-                            <span className="mb-2">Circle Three</span>
-                            <input type="file" className="hidden" onChange={handleImageChangeCircleThree} />
-                        </label>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
-                            <span className="mb-2">Circle Four</span>
-                            <input type="file" className="hidden" onChange={handleImageChangeCircleFour} />
-                        </label>
-                    </div>
+            {/* Main container */}
+            <div className="max-w-6xl mx-auto p-6 space-y-8">
+                {/* Top inputs section */}
+                <div className="space-y-4 mb-8">
+                    <input
+                        type="text"
+                        onChange={(e) => setLocationName(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Location Name"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setDan(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Dan"
+                    />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="w-full px-4 py-2 mb-4 border border-[#293d69] rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#293d69] file:text-white hover:file:bg-[#1e2f4f]"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setLandPackageAdult(e.target.value)}
+                        placeholder='Land package for adults'
+                        value={landPackageAdult}
+                        className="w-full px-4 py-2 mb-4 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setLandPackageChild(e.target.value)}
+                        placeholder='Land package for children'
+                        value={landPackageChild}
+                        className="w-full px-4 py-2 mb-4 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
+                    />
                 </div>
-            </div>
 
-            {/* Square File Inputs */}
-            <div>
-                <h2 className="text-[#293d69] font-semibold mb-4 text-lg">Square Images</h2>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div className="flex flex-col items-center">
-                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
-                            <span className="mb-2">Square One</span>
-                            <input type="file" className="hidden" onChange={handleImageSqureOne} />
-                        </label>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
-                            <span className="mb-2">Square Two</span>
-                            <input type="file" className="hidden" onChange={handleImageSqureTwo} />
-                        </label>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
-                            <span className="mb-2">Square Three</span>
-                            <input type="file" className="hidden" onChange={handleImageSqureThree} />
-                        </label>
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
-                            <span className="mb-2">Square Four</span>
-                            <input type="file" className="hidden" onChange={handleImageSqureFour} />
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                {hotelData.map((table, tableIndex) => (
-                    <div key={tableIndex} className="border p-4 mb-4">
-                        <div className="flex justify-between mb-2">
+                {/* Days section */}
+                <div className="space-y-6 mb-8">
+                    {data.map((day, dayIndex) => (
+                        <div key={dayIndex} className="border border-[#293d69] rounded-lg p-6 space-y-4">
                             <input
                                 type="text"
-                                value={table.status}
-                                onChange={(e) =>
-                                    handleInputChange(tableIndex, null, "status", e.target.value)
-                                }
-                                placeholder="Enter Status (e.g., 4 Star)"
-                                className="border p-2"
+                                value={day.day}
+                                onChange={(e) => handleDayChange(e.target.value, dayIndex)}
+                                className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
                             />
-                            <button
-                                onClick={() => removeTable(tableIndex)}
-                                className="text-red-500"
-                            >
-                                Remove Table
-                            </button>
-                        </div>
-
-                        {table.info.map((row, rowIndex) => (
-                            <div key={rowIndex} className="flex gap-4 mb-2">
-                                <input
-                                    type="text"
-                                    value={row.name}
-                                    onChange={(e) =>
-                                        handleInputChange(tableIndex, rowIndex, "name", e.target.value)
-                                    }
-                                    placeholder="Enter Name"
-                                    className="border p-2"
-                                />
-                                <input
-                                    type="text"
-                                    value={row.detail}
-                                    onChange={(e) =>
-                                        handleInputChange(
-                                            tableIndex,
-                                            rowIndex,
-                                            "detail",
-                                            e.target.value
-                                        )
-                                    }
-                                    placeholder="Enter Detail"
-                                    className="border p-2"
-                                />
-                                <button
-                                    onClick={() => removeRow(tableIndex, rowIndex)}
-                                    className="text-red-500"
-                                >
-                                    Remove Row
+                            <div className="space-y-2">
+                                {day.details.map((detail, detailIndex) => (
+                                    <div key={detailIndex} className="flex items-center space-x-2">
+                                        <input
+                                            type="text"
+                                            value={detail}
+                                            onChange={(e) => handleDetailChange(e.target.value, dayIndex, detailIndex)}
+                                            className="flex-1 px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="flex space-x-4">
+                                <button onClick={() => addDetail(dayIndex)} className="px-4 py-2 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f]">
+                                    Add Detail
+                                </button>
+                                <button onClick={() => removeLastDetail(dayIndex)} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                                    Remove Last Detail
                                 </button>
                             </div>
-                        ))}
-                        <button
-                            onClick={() => addRow(tableIndex)}
-                            className="bg-blue-500 text-white p-2 mb-2"
-                        >
-                            Add Row
-                        </button>
-
-                        <div className="flex gap-4">
-                            <input
-                                type="text"
-                                value={table.adultCost}
-                                onChange={(e) =>
-                                    handleInputChange(tableIndex, null, "adultCost", e.target.value)
-                                }
-                                placeholder="Enter Adult Cost"
-                                className="border p-2"
-                            />
-                            <input
-                                type="text"
-                                value={table.childCost}
-                                onChange={(e) =>
-                                    handleInputChange(tableIndex, null, "childCost", e.target.value)
-                                }
-                                placeholder="Enter Child Cost"
-                                className="border p-2"
-                            />
                         </div>
+                    ))}
+                    <div className="flex space-x-4">
+                        <button onClick={addDay} className="px-6 py-2 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f]">
+                            Add Day
+                        </button>
+                        <button onClick={removeDay} className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                            Remove Day
+                        </button>
                     </div>
-                ))}
-                <button onClick={addTable} className="bg-green-500 text-white p-2">
-                    Add Table
+                </div>
+
+                {/* Circle Images section */}
+                <div className="mb-8">
+                    <h2 className="text-[#293d69] font-semibold mb-4 text-lg">Circle Images</h2>
+                    <div className="flex flex-wrap gap-4">
+                        {['One', 'Two', 'Three', 'Four'].map((num, index) => (
+                            <div key={index} className="flex-1 min-w-[200px]">
+                                <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                                    <span className="mb-2">Circle {num}</span>
+                                    <input
+                                        type="file"
+                                        className="hidden"
+                                        onChange={eval(`handleImageChangeCircle${num}`)}
+                                    />
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Square Images section */}
+                <div className="mb-8">
+                    <h2 className="text-[#293d69] font-semibold mb-4 text-lg">Square Images</h2>
+                    <div className="flex flex-wrap gap-4">
+                        {['One', 'Two', 'Three', 'Four'].map((num, index) => (
+                            <div key={index} className="flex-1 min-w-[200px]">
+                                <label className="flex flex-col items-center px-4 py-2 bg-white text-[#293d69] rounded-lg border border-[#293d69] cursor-pointer hover:bg-[#293d69] hover:text-white transition-colors">
+                                    <span className="mb-2">Square {num}</span>
+                                    <input
+                                        type="file"
+                                        className="hidden"
+                                        onChange={eval(`handleImageSqure${num}`)}
+                                    />
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Hotel Data section */}
+                <div className="space-y-6">
+                    {hotelData.map((table, tableIndex) => (
+                        <div key={tableIndex} className="border border-[#293d69] rounded-lg p-6 space-y-4">
+                            <div className="flex justify-between items-center">
+                                <input
+                                    type="text"
+                                    value={table.status}
+                                    onChange={(e) => handleInputChange(tableIndex, null, "status", e.target.value)}
+                                    placeholder="Enter Status (e.g., 4 Star)"
+                                    className="flex-1 mr-4 px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
+                                />
+                                <button onClick={() => removeTable(tableIndex)} className="px-4 py-2 text-red-500 hover:text-red-600">
+                                    Remove Table
+                                </button>
+                            </div>
+
+                            {table.info.map((row, rowIndex) => (
+                                <div key={rowIndex} className="flex space-x-4">
+                                    <input
+                                        type="text"
+                                        value={row.name}
+                                        onChange={(e) => handleInputChange(tableIndex, rowIndex, "name", e.target.value)}
+                                        placeholder="Enter Name"
+                                        className="flex-1 px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
+                                    />
+                                    <input
+                                        type="text"
+                                        value={row.detail}
+                                        onChange={(e) => handleInputChange(tableIndex, rowIndex, "detail", e.target.value)}
+                                        placeholder="Enter Detail"
+                                        className="flex-1 px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
+                                    />
+                                    <button onClick={() => removeRow(tableIndex, rowIndex)} className="px-4 py-2 text-red-500 hover:text-red-600">
+                                        Remove Row
+                                    </button>
+                                </div>
+                            ))}
+
+                            <button onClick={() => addRow(tableIndex)} className="w-full px-4 py-2 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f]">
+                                Add Row
+                            </button>
+
+                            <div className="flex space-x-4">
+                                <input
+                                    type="text"
+                                    value={table.adultCost}
+                                    onChange={(e) => handleInputChange(tableIndex, null, "adultCost", e.target.value)}
+                                    placeholder="Enter Adult Cost"
+                                    className="flex-1 px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
+                                />
+                                <input
+                                    type="text"
+                                    value={table.childCost}
+                                    onChange={(e) => handleInputChange(tableIndex, null, "childCost", e.target.value)}
+                                    placeholder="Enter Child Cost"
+                                    className="flex-1 px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
+                                />
+                            </div>
+                        </div>
+                    ))}
+                    <button onClick={addTable} className="w-full px-4 py-2 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f]">
+                        Add Table
+                    </button>
+                </div>
+
+                {/* Notes and Textareas section */}
+                <div className="space-y-6">
+                    <div className="space-y-4">
+                        <textarea
+                            className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
+                            placeholder="Notes : add a full stop after every disclaimer"
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="space-y-4">
+                        <textarea
+                            className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
+                            placeholder="Inclusion : add a full stop after every line"
+                            value={inlcusion}
+                            onChange={(e) => setInclusion(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="space-y-4">
+                        <textarea
+                            className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
+                            placeholder="Exclusion : add a full stop after every line"
+                            value={exclusion}
+                            onChange={(e) => setExclusion(e.target.value)}
+                        />
+                    </div>
+                </div>
+
+                {/* Download button */}
+                <button onClick={convertToPdf} className="w-full px-6 py-3 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f] font-semibold">
+                    Download PDF
                 </button>
-
-                {/* <pre className="mt-4 p-4 bg-gray-100 border">{JSON.stringify(hotelData, null, 2)}</pre> */}
-
             </div>
 
-            <div className="space-y-6 bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
-                <div className="space-y-2">
-                    <textarea
-                        className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
-                        placeholder="Notes : add a full stop after every disclaimer"
-                        value={notes}
-                        onChange={(e) => setNotes(e.target.value)}
-                    />
-                </div>
-
-                <div className="space-y-2">
-                    <textarea
-                        className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
-                        placeholder="Inclusion : add a full stop after every line"
-                        value={inlcusion}
-                        onChange={(e) => setInclusion(e.target.value)}
-                    />
-                </div>
-
-                <div className="space-y-2">
-                    <textarea
-                        className="w-full h-32 px-4 py-3 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent resize-vertical"
-                        placeholder="Exclusion : add a full stop after every line"
-                        value={exclusion}
-                        onChange={(e) => setExclusion(e.target.value)}
-                    />
-                </div>
-            </div>
-
-
-
-
-
-
-
-            <button onClick={convertToPdf}>Download PDF</button>
+            {/* paste above here the designing  */}
 
             {/* main div  */}
             <div ref={contentRef} className="w-[612px] h-fit bg-slate-400 flex flex-col justify-center items-center self-center mb-[200px]">
@@ -844,31 +801,31 @@ const PdfTwo = () => {
 
                     <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
 
-                        {
-                            hotelData.length > 1 && (
-                                <div>
-                                    <p className='alice text-[15px] blue font-black'> <b>Accomodations:</b></p>
+                        <div>
+                            <p className='alice text-[15px] blue font-black'> <b>Accomodations:</b></p>
 
-                                    <table className="w-full border-collapse mt-[43.85px]">
-                                        <thead>
-                                            <tr>
-                                                <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0" colSpan="2">{hotelData[0].status}</th>
+                            <table className="w-full border-collapse mt-[43.85px]">
+                                <thead>
+                                    <tr>
+                                        <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0" colSpan="2">{hotelData[0].status}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        hotelData[0].info.map((item, index) => (
+                                            <tr key={index}>
+                                                <td className="alice blue border border-black citycell pt-0">Hotel Cost - {item.name}</td>
+                                                <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">Hotel Cost - {item.detail}</td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                hotelData[0].info.map((item, index) => (
-                                                    <tr key={index}>
-                                                        <td className="alice blue border border-black citycell pt-0">Hotel Cost - {item.name}</td>
-                                                        <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">Hotel Cost - {item.detail}</td>
-                                                    </tr>
-                                                ))
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )
-                        }
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                            <div className='flex flex-col justify-center items-start w-full h-fit gap-1 mt-[58px]'>
+                                <p className='alice text-[15px] blue font-black mt-[26px]'>Hotel Cost - <b>{hotelData[0].adultCost}</b></p>
+                                <p className='alice text-[15px] blue font-black'>Hotel Cost - <b>{hotelData[0].childCost}</b> </p>
+                            </div>
+                        </div>
                     </div>
 
 
