@@ -190,10 +190,10 @@ const Pdf = () => {
 
 
     const options = {
-        filename: `${locationName, title} `,
+        filename: `${locationName, title} || noheading`,
         margin: 0, // No margin to ensure the content fills the page
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 3 },
+        html2canvas: { scale: 4 },
         jsPDF: { unit: 'px', format: [612, 858.75], orientation: 'portrait' }, // A4 size in pixels
     };
 
@@ -916,11 +916,6 @@ const Pdf = () => {
                         </div>
                     )
                 }
-
-
-
-
-
             </div>
             <button onClick={convertToPdf}>Download PDF</button>
         </div>

@@ -5,6 +5,7 @@ import message from '../Assests/message.png'
 import globe from '../Assests/globe.png'
 import location from '../Assests/location.png'
 import backgroundlogo from '../Assests/backgroundlogo.png'
+import header from '../Assests/header.png'
 
 export default {
     logonobg,
@@ -13,5 +14,6 @@ export default {
     message,
     globe,
     location,
-    backgroundlogo
+    backgroundlogo,
+    header,
 }
