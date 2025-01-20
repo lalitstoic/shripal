@@ -507,7 +507,10 @@ const Pdf = () => {
 
             {/* main div  */}
             <div ref={contentRef} className="w-[612px] h-fit bg-slate-400 flex flex-col justify-center items-center self-center">
-
+                {/* Download button */}
+                <button onClick={convertToPdf} className="w-full px-6 py-3 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f] font-semibold">
+                    Download PDF
+                </button>
 
 
                 {/* First page content */}

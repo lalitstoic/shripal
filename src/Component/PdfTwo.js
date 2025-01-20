@@ -672,7 +672,7 @@ const PdfTwo = () => {
                                                 <ul className='ml-[25px] alice blue'>
                                                     {
                                                         item.details.map((detail, detailIndex) => (
-                                                            <li key={detailIndex} className='list-disc text-wrap'>{detail}</li>
+                                                            <li key={detailIndex} className='list-disc listwrap'>{detail}</li>
                                                         ))
                                                     }
                                                 </ul>
@@ -895,7 +895,7 @@ const PdfTwo = () => {
                                         {
                                             incArray.map((inc, incIndex) => (
                                                 <ul className='ml-12 alice blue'>
-                                                    <li key={incIndex} className='list-disc text-wrap'>{inc}</li>
+                                                    <li key={incIndex} className='list-disc listwrap'>{inc}</li>
                                                 </ul>
                                             ))
                                         }
@@ -909,7 +909,7 @@ const PdfTwo = () => {
                                         {
                                             excArray.map((exc, excIndex) => (
                                                 <ul className='ml-12 alice blue'>
-                                                    <li key={excIndex} className='list-disc text-wrap'>{exc}</li>
+                                                    <li key={excIndex} className='list-disc listwrap'>{exc}</li>
 
                                                 </ul>
                                             ))
@@ -938,7 +938,7 @@ const PdfTwo = () => {
                                         {
                                             notesArray.map((note, noteIndex) => (
                                                 <ul className='ml-12 alice blue'>
-                                                    <li key={noteIndex} className='list-disc text-wrap'>{note}</li>
+                                                    <li key={noteIndex} className='list-disc listwrap'>{note}</li>
 
                                                 </ul>
                                             ))
