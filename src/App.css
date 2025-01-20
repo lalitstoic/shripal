@@ -34,3 +34,9 @@ html {
   width: 120px;
   padding-left: 5px;
 }
+
+.listwrap {
+  word-wrap: break-word; /* Ensures long words break */
+  word-break: break-word; /* Alternative for better browser support */
+  white-space: normal; /* Allows text to wrap normally */
+}

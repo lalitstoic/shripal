@@ -827,8 +827,8 @@ const Pdf = () => {
                                 <p className='alice text-[15px] blue font-black'> <b>Note:</b></p>
                                 {
                                     notesArray.map((note, noteIndex) => (
-                                        <ul className='ml-12 alice blue'>
-                                            <li key={noteIndex} className='list-disc text-wrap'>{note}</li>
+                                        <ul className='ml-12 alice blue w-full'>
+                                            <li key={noteIndex} className='list-disc w-11/12 listwrap'>{note}</li>
 
                                         </ul>
                                     ))
@@ -891,7 +891,7 @@ const Pdf = () => {
                                         {
                                             incArray.map((inc, incIndex) => (
                                                 <ul className='ml-12 alice blue'>
-                                                    <li key={incIndex} className='list-disc text-wrap'>{inc}</li>
+                                                    <li key={incIndex} className='list-disc listwrap'>{inc}</li>
                                                 </ul>
                                             ))
                                         }
@@ -905,7 +905,7 @@ const Pdf = () => {
                                         {
                                             excArray.map((exc, excIndex) => (
                                                 <ul className='ml-12 alice blue'>
-                                                    <li key={excIndex} className='list-disc text-wrap'>{exc}</li>
+                                                    <li key={excIndex} className='list-disc listwrap'>{exc}</li>
 
                                                 </ul>
                                             ))
