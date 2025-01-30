@@ -105,13 +105,22 @@ const Pdf = () => {
         }
     ]);
 
-    // Handle input change in any of the fields
+    // Handle input change for all fields, including date inputs
     const handleInputChange = (index, event) => {
-        const { name, value } = event.target;
+        const { name, value, type } = event.target;
         const updatedInputGroups = [...inputGroups];
-        updatedInputGroups[index][name] = value;
+
+        // If the input type is "date", convert YYYY-MM-DD to DD-MM-YYYY
+        if (type === "date") {
+            updatedInputGroups[index][name] = value.split("-").reverse().join("-");
+        } else {
+            // For other inputs, keep the value as is
+            updatedInputGroups[index][name] = value;
+        }
+
         setInputGroups(updatedInputGroups);
     };
+
 
     // Handle adding a new group of inputs
     const addNewGroup = () => {
@@ -175,8 +184,19 @@ const Pdf = () => {
 
     const handleDateChange = (index, value) => {
         const newDates = [...dates];
-        newDates[index].date = value;
+
+        // Convert DD-MM-YYYY to YYYY-MM-DD format before updating the state
+        newDates[index].date = value.split("-").reverse().join("-");
+
         setDates(newDates);
+    };
+
+
+    // helper date function 
+    const convertToDateForInput = (date) => {
+        if (!date) return ''; // If no date, return empty string
+        const [day, month, year] = date.split('-');
+        return `${year}-${month}-${day}`; // Convert to YYYY-MM-DD format
     };
 
 
@@ -246,6 +266,14 @@ const Pdf = () => {
                         className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
                         placeholder="Number of Rooms"
                     />
+                    <input
+                        type="text"
+                        onChange={(e) => setHeading(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Itiniery table heading : eg:  Sightseeing on SIC basis
+  (No hotel pick up or drop of ) "
+                    />
+                    {/* <input placeholder='Enter Dates table heading' type="text" value={heading} onChange={(e) => setHeading(e.target.value)} /> */}
                     <input
                         type="text"
                         onChange={(e) => setPriceDisclaimer(e.target.value)}
@@ -327,9 +355,9 @@ const Pdf = () => {
                         <div key={dateIndex} className="border border-[#293d69] rounded-lg p-4">
                             <div className="date-container space-y-4">
                                 <input
-                                    type="text"
+                                    type="date"
                                     placeholder="Enter date"
-                                    value={date.date}
+                                    value={convertToDateForInput(date.date)}
                                     onChange={(e) => handleDateChange(dateIndex, e.target.value)}
                                     className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
                                 />
@@ -414,9 +442,9 @@ const Pdf = () => {
                             <div className="space-y-2">
                                 <label className="block text-[#293d69] font-medium">Check-in:</label>
                                 <input
-                                    type="text"
+                                    type="date"
                                     name="checkIn"
-                                    value={group.checkIn}
+                                    value={convertToDateForInput(group.checkIn)} // Convert for input
                                     onChange={(event) => handleInputChange(index, event)}
                                     className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
                                 />
@@ -425,9 +453,9 @@ const Pdf = () => {
                             <div className="space-y-2">
                                 <label className="block text-[#293d69] font-medium">Check-out:</label>
                                 <input
-                                    type="text"
+                                    type="date"
                                     name="checkOut"
-                                    value={group.checkOut}
+                                    value={convertToDateForInput(group.checkOut)} // Convert for input
                                     onChange={(event) => handleInputChange(index, event)}
                                     className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
                                 />
@@ -516,7 +544,7 @@ const Pdf = () => {
                 onChange={handleImageChange}
                 className="mb-4"
             />
-            <input placeholder='Enter Dates table heading' type="text" value={heading} onChange={(e) => setHeading(e.target.value)} />
+
 
             {/* Download button */}
             <button onClick={convertToPdf} className="w-full px-6 py-3 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f] font-semibold">

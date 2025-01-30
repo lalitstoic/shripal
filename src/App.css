@@ -27,7 +27,7 @@ html {
   word-break: break-all; /* Break long words that don't fit within the column */
 }
 .datecell {
-  width: 70px;
+  width: 90px;
   padding-left: 5px;
 }
 .citycell {

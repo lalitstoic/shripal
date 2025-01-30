@@ -30,6 +30,9 @@ add a input for number of rooms
 5. Dont show the itnery table unless it is not added
 --done
 
+increase the width of the date column
+done 
+
 
 
 Pdf two : Japan
