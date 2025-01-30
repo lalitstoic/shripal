@@ -5,7 +5,6 @@ import Header from './Header';
 
 const PdfTwo = () => {
     const [locationName, setLocationName] = useState('')
-    const [dan, setDan] = useState('');
     const contentRef = useRef(null);
     const [image, setImage] = useState(null)
 
@@ -26,6 +25,9 @@ const PdfTwo = () => {
     const [sqTwo, setSqTwo] = useState(null)
     const [sqThree, setSqThree] = useState(null)
     const [sqFour, setSqFour] = useState(null)
+
+    const [days, setDays] = useState('');
+    const [nights, setNights] = useState('');
 
 
     // notes code here 
@@ -329,7 +331,7 @@ const PdfTwo = () => {
 
     //pdf generating code
     const options = {
-        filename: `${locationName, dan}`,
+        filename: `${locationName}`,
         margin: 0, // No margin to ensure the content fills the page
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 4 },
@@ -363,9 +365,15 @@ const PdfTwo = () => {
                     />
                     <input
                         type="text"
-                        onChange={(e) => setDan(e.target.value)}
+                        onChange={(e) => setNights(e.target.value)}
                         className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
-                        placeholder="Dan"
+                        placeholder="Number of Nights"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setDays(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Number of Days"
                     />
                     <input
                         type="file"
@@ -376,14 +384,14 @@ const PdfTwo = () => {
                     <input
                         type="text"
                         onChange={(e) => setLandPackageAdult(e.target.value)}
-                        placeholder='Land package for adults'
+                        placeholder='eg: JPY 259,000 /-'
                         value={landPackageAdult}
                         className="w-full px-4 py-2 mb-4 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
                     />
                     <input
                         type="text"
                         onChange={(e) => setLandPackageChild(e.target.value)}
-                        placeholder='Land package for children'
+                        placeholder='eg: JPY 138,000 /-'
                         value={landPackageChild}
                         className="w-full px-4 py-2 mb-4 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
                     />
@@ -492,24 +500,24 @@ const PdfTwo = () => {
                                         type="text"
                                         value={row.name}
                                         onChange={(e) => handleInputChange(tableIndex, rowIndex, "name", e.target.value)}
-                                        placeholder="Enter Name"
+                                        placeholder="Tokyo"
                                         className="flex-1 px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
                                     />
                                     <input
                                         type="text"
                                         value={row.detail}
                                         onChange={(e) => handleInputChange(tableIndex, rowIndex, "detail", e.target.value)}
-                                        placeholder="Enter Detail"
+                                        placeholder=" Keio Presso Inn Hamamatsucho or Similar"
                                         className="flex-1 px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69]"
                                     />
                                     <button onClick={() => removeRow(tableIndex, rowIndex)} className="px-4 py-2 text-red-500 hover:text-red-600">
-                                        Remove Row
+                                        Remove Hotel
                                     </button>
                                 </div>
                             ))}
 
                             <button onClick={() => addRow(tableIndex)} className="w-full px-4 py-2 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f]">
-                                Add Row
+                                Add Hotel
                             </button>
 
                             <div className="flex space-x-4">
@@ -591,7 +599,7 @@ const PdfTwo = () => {
                         <div className="flex flex-col justify-center items-center">
                             <p className="el text-[160px] text-white">{locationName}</p>
                             {/* Adjusted positioning without absolute */}
-                            <h2 className="alice text-[31.2px] text-white">{dan}</h2>
+                            <h2 className="alice text-[31.2px] text-white">{nights} Nights {days} Days</h2>
                         </div>
 
                     </div>
@@ -632,8 +640,14 @@ const PdfTwo = () => {
 
                 {/* second third and four page automatically generated  */}
 
+                {/* {
+                    groups.length !== 1 && (
+                        console.log("There is data ")
+                    )
+                } */}
+
                 {
-                    groups && groups.map((group, index) => (
+                    data[0].details[0] !== "" && groups.map((group, index) => (
                         <div style={{
                             backgroundImage: `url(${Media.backgroundlogo})`,
                             backgroundSize: `cover`,
@@ -649,7 +663,7 @@ const PdfTwo = () => {
                                     <div className='mt-[22.77px] flex flex-col justify-center items-center'>
                                         {/* title  */}
                                         <h3 className='alice text-[15px] blue'> <b>{locationName}</b></h3>
-                                        <h3 className='alice text-[15px] blue'> <b>{dan}</b></h3>
+                                        <h3 className='alice text-[15px] blue'> <b>{nights} Nights {days} Days</b></h3>
                                     </div>
                                 )
                             }
@@ -792,40 +806,55 @@ const PdfTwo = () => {
 
                     <Header />
 
-                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
-                        <p className='alice text-[15px] blue font-black'> <b>Land Package:</b></p>
-                        <p className='alice text-[15px] blue font-black mt-[26px]'> <b>{landPackageAdult}</b></p>
-                        <p className='alice text-[15px] blue font-black'> <b>{landPackageChild}</b> </p>
-                    </div>
-
-
-                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
-
-                        <div>
-                            <p className='alice text-[15px] blue font-black'> <b>Accomodations:</b></p>
-
-                            <table className="w-full border-collapse mt-[43.85px]">
-                                <thead>
-                                    <tr>
-                                        <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0" colSpan="2">{hotelData[0].status}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        hotelData[0].info.map((item, index) => (
-                                            <tr key={index}>
-                                                <td className="alice blue border border-black citycell pt-0">{item.name}</td>
-                                                <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">{item.detail}</td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-                            </table>
-                            <div className='flex flex-col justify-center items-start w-full h-fit gap-1 mt-[58px]'>
-                                <p className='alice text-[15px] blue font-black mt-[26px]'>Hotel Cost - <b>{hotelData[0].adultCost}</b></p>
-                                <p className='alice text-[15px] blue font-black'>Hotel Cost - <b>{hotelData[0].childCost}</b> </p>
+                    {
+                        landPackageAdult !== "" && (
+                            <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+                                <p className='alice text-[15px] blue font-black'> <b>Land Package:</b></p>
+                                <p className='alice text-[15px] blue font-black mt-[26px]'> <b>Tour Cost {landPackageAdult} /- Per Person</b></p>
+                                <p className='alice text-[15px] blue font-black'> <b>Tour Cost {landPackageChild} /- Per Child (Child Above 6 Years)</b> </p>
                             </div>
-                        </div>
+                        )
+                    }
+
+
+
+                    <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
+
+
+                        {
+                            hotelData[0].status !== "" && (
+                                <div>
+                                    <p className='alice text-[15px] blue font-black'> <b>Accomodations:</b></p>
+
+                                    <table className="w-full border-collapse mt-[43.85px]">
+                                        <thead>
+                                            <tr>
+                                                <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0" colSpan="2">{hotelData[0].status}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                hotelData[0].info.map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td className="alice blue border border-black citycell pt-0">{item.name}</td>
+                                                        <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">{item.detail}</td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div className='flex flex-col justify-center items-start w-full h-fit gap-1 mt-[58px]'>
+                                        <p className='alice text-[15px] blue font-black mt-[26px]'>Hotel Cost - <b>{hotelData[0].adultCost}</b></p>
+                                        <p className='alice text-[15px] blue font-black'>Hotel Cost - <b>{hotelData[0].childCost}</b> </p>
+                                    </div>
+                                </div>
+
+                            )
+                        }
+
+
+
+
                     </div>
 
 

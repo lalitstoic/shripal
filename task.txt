@@ -36,17 +36,22 @@ done
 
 
 Pdf two : Japan
-
+done
 1. Days and Night
-
+done
 2. Title should be automatic 
+done
 
 3. Dont show the first page of itnery unless the itneries are not added
+-- done
 
 4. Dont show land packages unless it is present
+done 
 
 5. Dont show accomodation table unless the data is present
-
+done
+   ||
 6. Dont show hotel cost unless the accomadation table is there
+done
 
 
