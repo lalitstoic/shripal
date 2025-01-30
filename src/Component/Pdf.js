@@ -230,6 +230,13 @@ const Pdf = () => {
             <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
                 {/* Form Inputs */}
                 <div className="space-y-4 mb-8">
+                    <p>Choose the Cover page of the PDF</p>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="mb-4"
+                    />
                     <input
                         type="text"
                         onChange={(e) => setLocationName(e.target.value)}
@@ -538,12 +545,7 @@ const Pdf = () => {
                     </tbody>
                 </table>
             </div>
-            <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="mb-4"
-            />
+
 
 
             {/* Download button */}

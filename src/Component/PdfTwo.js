@@ -375,6 +375,7 @@ const PdfTwo = () => {
                         className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
                         placeholder="Number of Days"
                     />
+                    <p>Choose the Cover page image for the PDF</p>
                     <input
                         type="file"
                         accept="image/*"
