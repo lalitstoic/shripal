@@ -1,0 +1,49 @@
+pdf one  : Finland
+
+1. Days and Night
+make a state for Day
+make a state for nights 
+hardcode Days and nights in heading of the cover page
+Done
+
+2. Title should be automatic 
+remove the title state
+make a new variable that has title
+Done
+
+3. Number of pax 
+add a use state for adults
+add a use state for childs
+add a state for number of rooms 
+add a input for adults 
+add a input for childs
+add a input for number of rooms 
+--Done
+
+
+
+
+4. Dont show the first page unless the there is no data present in the table
+--- done 
+
+
+5. Dont show the itnery table unless it is not added
+--done
+
+
+
+Pdf two : Japan
+
+1. Days and Night
+
+2. Title should be automatic 
+
+3. Dont show the first page of itnery unless the itneries are not added
+
+4. Dont show land packages unless it is present
+
+5. Dont show accomodation table unless the data is present
+
+6. Dont show hotel cost unless the accomadation table is there
+
+

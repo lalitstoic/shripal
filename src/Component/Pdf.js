@@ -10,6 +10,11 @@ const Pdf = () => {
     const [notes, setNotes] = useState('');
     const [inlcusion, setInclusion] = useState('');
     const [exclusion, setExclusion] = useState('');
+    const [days, setDays] = useState('');
+    const [nights, setNights] = useState('');
+    const [adults, setAdults] = useState('0');
+    const [child, setChild] = useState('0');
+    const [numberOfRoom, setNumberOfRoom] = useState('');
 
     //last page
     const [priceDisclaimer, setPriceDisclaimer] = useState('');
@@ -17,9 +22,6 @@ const Pdf = () => {
 
     // first page 
     const [locationName, setLocationName] = useState('');
-    const [dan, setDan] = useState('');
-    const [title, setTitle] = useState('');
-    const [tableHeading, setTableHeading] = useState('')
 
 
 
@@ -140,7 +142,7 @@ const Pdf = () => {
 
     // table for adding itnery 
     const [dates, setDates] = useState([
-        { date: '23 Feb', activities: ['We will dance'] },
+        { date: '', activities: [''] },
     ]);
 
     // const handleAddActivity = (dateIndex) => {
@@ -190,7 +192,7 @@ const Pdf = () => {
 
 
     const options = {
-        filename: `${locationName, title} || noheading`,
+        filename: `${locationName} || noheading`,
         margin: 0, // No margin to ensure the content fills the page
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 4 },
@@ -216,21 +218,33 @@ const Pdf = () => {
                     />
                     <input
                         type="text"
-                        onChange={(e) => setDan(e.target.value)}
+                        onChange={(e) => setNights(e.target.value)}
                         className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
-                        placeholder="Dan"
+                        placeholder="Number of Nights"
                     />
                     <input
                         type="text"
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => setDays(e.target.value)}
                         className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
-                        placeholder="Title"
+                        placeholder="Number of Days"
                     />
                     <input
                         type="text"
-                        onChange={(e) => setTableHeading(e.target.value)}
+                        onChange={(e) => setAdults(e.target.value)}
                         className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
-                        placeholder="Table Heading"
+                        placeholder="Number of Adults"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setChild(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Number of Child"
+                    />
+                    <input
+                        type="text"
+                        onChange={(e) => setNumberOfRoom(e.target.value)}
+                        className="w-full px-4 py-2 border border-[#293d69] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#293d69] focus:border-transparent"
+                        placeholder="Number of Rooms"
                     />
                     <input
                         type="text"
@@ -504,13 +518,13 @@ const Pdf = () => {
             />
             <input placeholder='Enter Dates table heading' type="text" value={heading} onChange={(e) => setHeading(e.target.value)} />
 
+            {/* Download button */}
+            <button onClick={convertToPdf} className="w-full px-6 py-3 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f] font-semibold">
+                Download PDF
+            </button>
 
             {/* main div  */}
             <div ref={contentRef} className="w-[612px] h-fit bg-slate-400 flex flex-col justify-center items-center self-center">
-                {/* Download button */}
-                <button onClick={convertToPdf} className="w-full px-6 py-3 bg-[#293d69] text-white rounded-lg hover:bg-[#1e2f4f] font-semibold">
-                    Download PDF
-                </button>
 
 
                 {/* First page content */}
@@ -527,7 +541,7 @@ const Pdf = () => {
                         <div className="flex flex-col justify-center items-center">
                             <p className="el text-[90.6px] text-white">{locationName}</p>
                             {/* Adjusted positioning without absolute */}
-                            <h2 className="alice text-[31.2px] text-white">{dan}</h2>
+                            <h2 className="alice text-[31.2px] text-white"> {`${nights} Nights ${days} Days`}</h2>
                         </div>
 
                         <img className="w-[135px] h-[48.62px]" src={Media.logonobg} alt="" />
@@ -544,94 +558,101 @@ const Pdf = () => {
 
 
                 {/* Second page content */}
-                <div
-                    style={{
-                        backgroundImage: `url(${Media.backgroundlogo})`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center`
-                    }}
-                    className="w-full h-[858.75px] bg-green-300 flex flex-col justify-start items-center"
-                >
-                    <Header />
 
-                    <h3 className='alice text-[15px] blue mt-[103.85px]'>{title}</h3>
+                {
+                    inputGroups && inputGroups[0].destination !== "" && (
+                        <div
+                            style={{
+                                backgroundImage: `url(${Media.backgroundlogo})`,
+                                backgroundSize: `cover`,
+                                backgroundPosition: `center`
+                            }}
+                            className="w-full h-[858.75px] bg-green-300 flex flex-col justify-start items-center"
+                        >
+                            <Header />
 
-                    {/* table div  */}
-                    <div className='w-[516px] h-fit mt-[59px] gap-0'>
+                            <h3 className='alice text-[15px] blue mt-[103.85px] text-center'> <b> {locationName} {nights} N, {days} D </b> </h3>
 
-                        <div className="w-full">
-                            {/* Title */}
-                            <div className="text-center border border-t-black border-l-black border-r-black pt-2 pb-2">
-                                <p className="alice blue text-gray-700">{tableHeading}</p>
+                            {/* table div  */}
+                            <div className='w-[516px] h-fit mt-[59px] gap-0'>
+
+                                <div className="w-full">
+                                    {/* Title */}
+                                    <div className="text-center border border-t-black border-l-black border-r-black pt-2 pb-2">
+                                        <p className="alice blue text-gray-700">No. of Pax: {adults} adults {child} children ( {numberOfRoom} rooms )</p>
+                                    </div>
+
+                                    {/* Table */}
+                                    <table className="w-full border-collapse">
+                                        <thead>
+                                            <tr>
+                                                <th className="alice border border-black bg-[#293D69] text-white p-2">Destination</th>
+                                                <th className="alice border border-black bg-[#293D69] text-white p-2">Accommodation</th>
+                                                <th className="alice border border-black bg-[#293D69] text-white p-2">Room Category</th>
+                                                <th className="alice border border-black bg-[#293D69] text-white p-2">No. of Nights</th>
+                                                <th className="alice border border-black bg-[#293D69] text-white p-2">Check in</th>
+                                                <th className="alice border border-black bg-[#293D69] text-white p-2">Check Out</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {inputGroups.slice(0, 2).map((group, index) => (
+                                                <tr key={index}>
+                                                    <td className="alice blue border border-black p-2 pt-0">{group.destination}</td>
+                                                    <td className="alice blue border border-black p-2 wrap-accommodation pt-0">{group.accommodation}</td>
+                                                    <td className="alice blue border border-black p-2 text-center pt-0">{group.roomCategory}</td>
+                                                    <td className="alice blue border border-black p-2 text-center pt-0">{group.numberOfNights}</td>
+                                                    <td className="alice blue border border-black p-2 text-center pt-0">{group.checkIn}</td>
+                                                    <td className="alice blue border border-black p-2 text-center pt-0">{group.checkOut}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+
                             </div>
 
-                            {/* Table */}
-                            <table className="w-full border-collapse">
-                                <thead>
-                                    <tr>
-                                        <th className="alice border border-black bg-[#293D69] text-white p-2">Destination</th>
-                                        <th className="alice border border-black bg-[#293D69] text-white p-2">Accommodation</th>
-                                        <th className="alice border border-black bg-[#293D69] text-white p-2">Room Category</th>
-                                        <th className="alice border border-black bg-[#293D69] text-white p-2">No. of Nights</th>
-                                        <th className="alice border border-black bg-[#293D69] text-white p-2">Check in</th>
-                                        <th className="alice border border-black bg-[#293D69] text-white p-2">Check Out</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {inputGroups.slice(0, 2).map((group, index) => (
-                                        <tr key={index}>
-                                            <td className="alice blue border border-black p-2 pt-0">{group.destination}</td>
-                                            <td className="alice blue border border-black p-2 wrap-accommodation pt-0">{group.accommodation}</td>
-                                            <td className="alice blue border border-black p-2 text-center pt-0">{group.roomCategory}</td>
-                                            <td className="alice blue border border-black p-2 text-center pt-0">{group.numberOfNights}</td>
-                                            <td className="alice blue border border-black p-2 text-center pt-0">{group.checkIn}</td>
-                                            <td className="alice blue border border-black p-2 text-center pt-0">{group.checkOut}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            {/* circle images  */}
+
+                            <div className='flex flex-row gap-[37px] justify-center items-center rounded-full mt-[47px]'>
+
+                                {/* circle one  */}
+                                <div className='w-[183px] h-[183px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
+                                    {/* smaller circle  */}
+                                    <div className='w-[169px] h-[169px] overflow-hidden flex justify-center items-center rounded-full'>
+                                        {circleOne &&
+                                            <img className='scale-150' src={circleOne} alt="" />
+                                        }
+                                    </div>
+                                </div>
+                                {/* circle two  */}
+                                <div className='w-[133px] h-[133px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
+                                    {/* smaller circle  */}
+                                    <div className='w-[122.83px] h-[122.83px] overflow-hidden flex justify-center items-center rounded-full'>
+                                        {circleTwo &&
+                                            <img className='scale-150' src={circleTwo} alt="" />
+                                        }
+                                    </div>
+                                </div>
+                                {/* circle three  */}
+                                <div className='w-[88px] h-[88px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
+                                    {/* smaller circle  */}
+                                    <div className='w-[81.27px] h-[81.27px] overflow-hidden flex justify-center items-center rounded-full'>
+                                        {circleThree &&
+                                            <img className='scale-150' src={circleThree} alt="" />
+                                        }
+                                    </div>
+                                </div>
 
 
-                        </div>
-
-                    </div>
-
-                    {/* circle images  */}
-
-                    <div className='flex flex-row gap-[37px] justify-center items-center rounded-full mt-[47px]'>
-
-                        {/* circle one  */}
-                        <div className='w-[183px] h-[183px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
-                            {/* smaller circle  */}
-                            <div className='w-[169px] h-[169px] overflow-hidden flex justify-center items-center rounded-full'>
-                                {circleOne &&
-                                    <img className='scale-150' src={circleOne} alt="" />
-                                }
                             </div>
+
                         </div>
-                        {/* circle two  */}
-                        <div className='w-[133px] h-[133px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
-                            {/* smaller circle  */}
-                            <div className='w-[122.83px] h-[122.83px] overflow-hidden flex justify-center items-center rounded-full'>
-                                {circleTwo &&
-                                    <img className='scale-150' src={circleTwo} alt="" />
-                                }
-                            </div>
-                        </div>
-                        {/* circle three  */}
-                        <div className='w-[88px] h-[88px] flex justify-center items-center border-2 border-[#293D69] rounded-full'>
-                            {/* smaller circle  */}
-                            <div className='w-[81.27px] h-[81.27px] overflow-hidden flex justify-center items-center rounded-full'>
-                                {circleThree &&
-                                    <img className='scale-150' src={circleThree} alt="" />
-                                }
-                            </div>
-                        </div>
+                    )
+                }
 
 
-                    </div>
-
-                </div>
 
 
                 {
@@ -651,7 +672,7 @@ const Pdf = () => {
                                 <div className="w-full">
                                     {/* Title */}
                                     <div className="text-center border border-t-black border-l-black border-r-black pt-2 pb-2">
-                                        <p className="alice blue text-gray-700">{tableHeading}</p>
+                                        <p className="alice blue text-gray-700">No. of Pax: {adults} adults {child} children ( {numberOfRoom} rooms )</p>
                                     </div>
 
                                     {/* Table */}
@@ -689,42 +710,45 @@ const Pdf = () => {
                     )
                 }
 
+                {
+                    dates[0].date !== "" && (
 
+                        <div
+                            style={{
+                                backgroundImage: `url(${Media.backgroundlogo})`,
+                                backgroundSize: `cover`,
+                                backgroundPosition: `center`
+                            }}
+                            className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
+                        >
 
-                {/* real third page  */}
-                <div
-                    style={{
-                        backgroundImage: `url(${Media.backgroundlogo})`,
-                        backgroundSize: `cover`,
-                        backgroundPosition: `center`
-                    }}
-                    className="w-full h-[858.75px] bg-blue-300 flex flex-col justify-start items-center"
-                >
+                            <Header />
+                            {/* table div  */}
+                            <div className='w-[516px] h-fit mt-[59px] gap-0'>
 
-                    <Header />
-                    {/* table div  */}
-                    <div className='w-[516px] h-fit mt-[59px] gap-0'>
+                                {/* Table */}
+                                <table className="w-full border-collapse mt-[43.85px]">
+                                    <thead>
+                                        <tr>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">Date</th>
+                                            <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">{heading}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {dates.slice(0, 11).map((date, dateIndex) => (
+                                            <tr key={dateIndex}>
+                                                <td className="alice blue border border-black datecell pt-0">{date.date}</td>
+                                                <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">{date.activities}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
 
-                        {/* Table */}
-                        <table className="w-full border-collapse mt-[43.85px]">
-                            <thead>
-                                <tr>
-                                    <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">Date</th>
-                                    <th className="alice border border-black bg-[#293D69] text-white p-2 pt-0">{heading}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {dates.slice(0, 11).map((date, dateIndex) => (
-                                    <tr key={dateIndex}>
-                                        <td className="alice blue border border-black datecell pt-0">{date.date}</td>
-                                        <td className="alice blue border border-black p-2 pt-0 wrap-accommodation">{date.activities}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                        </div>
 
-                </div>
+                    )
+                }
 
 
 
@@ -817,7 +841,6 @@ const Pdf = () => {
                     <Header />
 
                     <div className='flex flex-col justify-center items-start w-full h-fit pl-[57px] gap-1 mt-[46px]'>
-                        <p className='alice text-[15px] blue font-black'> <b>{title}</b></p>
                         <p className='alice text-[15px] blue font-black'> <b>{priceDisclaimer}</b></p>
                         <p className='alice text-[15px] blue font-black'> <b>{price}</b> </p>
                     </div>
